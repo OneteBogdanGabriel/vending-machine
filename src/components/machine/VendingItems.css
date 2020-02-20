@@ -1,0 +1,14 @@
+.itemsList {
+}
+
+.itemSlot {
+  border: solid;
+}
+
+.dropSlot {
+  border: solid;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}

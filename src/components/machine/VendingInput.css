@@ -1,0 +1,9 @@
+.UI {
+  vertical-align: middle;
+  padding-left: 20px;
+}
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
