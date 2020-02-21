@@ -42,17 +42,17 @@ export function updateItem(item) {
   };
 }
 
-export function selectItemSuccess(item) {
-  return { type: types.SELECT_ITEM_SUCCESS, item };
-}
+// export function selectItemSuccess(item) {
+//   return { type: types.SELECT_ITEM_SUCCESS, item };
+// }
 
-export function selectItem(dispatch, getState) {
-  return itemApi
-    .getItem()
-    .then(item => {
-      dispatch(selectItemSuccess(item));
-    })
-    .catch(error => {
-      throw error;
-    });
-}
+// export function selectItem(dispatch, getState) {
+//   return itemApi
+//     .getItem()
+//     .then(item => {
+//       dispatch(selectItemSuccess(item));
+//     })
+//     .catch(error => {
+//       throw error;
+//     });
+// }

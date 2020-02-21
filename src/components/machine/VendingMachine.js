@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { setState, useEffect } from "react";
 import { connect } from "react-redux";
 import "./VendingMachine.css";
 import PropTypes from "prop-types";
@@ -6,18 +6,21 @@ import VendingItems from "./VendingItemsContainer";
 import VendingInput from "./VendingInputContainer";
 import {
   loadItems,
-  updateItem,
-  selectItem
+  updateItem
+  // selectItem
 } from "../../redux/actions/itemsActions";
 import { loadMoney, updateMoney } from "../../redux/actions/moneyActions";
 import { get } from "../../http/http";
+import { handleResponse } from "../../api/apiUtils";
+
+const baseUrl = "http://localhost:3001/machine";
 
 function VendingMachine({
   items,
   moneyStash,
   loadItems,
   updateItem,
-  selectItem,
+  // selectItem,
   loadMoney,
   updateMoney,
   ...props
@@ -35,6 +38,10 @@ function VendingMachine({
         alert("Loading money failed" + error);
       });
     });
+
+    // fetch(baseUrl).then(
+    //   response => setState({ items: response.items }) // this triggers a re-render!
+    // );
   }, [loadItems, loadMoney]);
 
   return (
@@ -48,7 +55,7 @@ function VendingMachine({
             items={items}
             moneyStash={moneyStash}
             updateItem={updateItem}
-            selectItem={selectItem}
+            // selectItem={selectItem}
             loadMoney={loadMoney}
             updateMoney={updateMoney}
           />
@@ -63,12 +70,13 @@ VendingMachine.propTypes = {
   moneyStash: PropTypes.object.isRequired,
   loadItems: PropTypes.func.isRequired,
   updateItem: PropTypes.func.isRequired,
-  selectItem: PropTypes.func.isRequired,
+  // selectItem: PropTypes.func.isRequired,
   loadMoney: PropTypes.func.isRequired,
   updateMoney: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
+  console.log("ITEMS IN VENDING", state);
   return {
     items: state.items,
     moneyStash: state.moneyStash
@@ -78,7 +86,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   loadItems,
   updateItem,
-  selectItem,
+  // selectItem,
   loadMoney,
   updateMoney
 };

@@ -39,8 +39,8 @@ export function getItems() {
     .catch(handleError);
 }
 
-export function getItem() {
-  return fetch(baseUrl)
-    .then(handleResponse)
-    .catch(handleError);
-}
+// export function getItem() {
+//   return fetch(baseUrl)
+//     .then(handleResponse)
+//     .catch(handleError);
+// }

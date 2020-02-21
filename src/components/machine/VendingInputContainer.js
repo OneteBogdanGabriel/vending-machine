@@ -33,7 +33,7 @@ const VendingInputContainer = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         itemsActions.updateItem(dispatch);
-        itemsActions.selectItem(dispatch);
+        // itemsActions.selectItem(dispatch);
         moneyActions.loadMoney(dispatch);
     }, [dispatch]);
 
@@ -125,7 +125,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
       actions: {
             loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
-            selectItem: bindActionCreators(itemsActions.selectItem, dispatch),
+            // selectItem: bindActionCreators(itemsActions.selectItem, dispatch),
             updateItem: bindActionCreators(itemsActions.updateItem, dispatch),
             loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
             updateMoney: bindActionCreators(moneyActions.updateMoney, dispatch)

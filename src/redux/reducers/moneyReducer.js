@@ -7,7 +7,7 @@ export default function moneyReducer(state = [], action) {
                 stash.stash === action.money ? stash.stash + action.money : stash.stash
               );
         case types.LOAD_MONEY_SUCCESS:
-            return action.stash;
+            return action.money;
         default:
             return state;
     }
