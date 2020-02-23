@@ -1,10 +1,5 @@
 import { handleResponse, handleError } from "./apiUtils";
-// import { MACHINE_URL } from "../http/http";
-// const baseUrl = MACHINE_URL;
-// import { SERVER_URL } from "../http/http";
-// const baseUrl = SERVER_URL + "/machine";
 const baseUrl = "http://localhost:3001/machine";
-// const baseUrl = process.env.API_URL + "/machine";
 
 export function updateMoney(money) {
   return (

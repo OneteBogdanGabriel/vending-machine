@@ -24,6 +24,7 @@ function VendingMachine(props) {
     updateItem,
     updateMoney
   } = props;
+
   useEffect(() => {
     get(baseUrl).then(data => {
       console.log("DATA", data);

@@ -32,7 +32,7 @@ const VendingInputContainer = (props) => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        itemsActions.updateItem(dispatch);
+        itemsActions.loadItems(dispatch);
         // itemsActions.selectItem(dispatch);
         moneyActions.loadMoney(dispatch);
     }, [dispatch]);

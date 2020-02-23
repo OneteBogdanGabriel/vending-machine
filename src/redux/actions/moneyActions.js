@@ -3,8 +3,8 @@ import * as moneyApi from "../../api/moneyApi";
 import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 
-export function loadMoneySuccess(money) {
-  return { type: types.LOAD_MONEY_SUCCESS, money };
+export function loadMoneySuccess(moneyStash) {
+  return { type: types.LOAD_MONEY_SUCCESS, moneyStash };
 }
 
 export function loadMoney() {
@@ -12,8 +12,8 @@ export function loadMoney() {
     dispatch(beginApiCall());
     return moneyApi
       .getMoney()
-      .then(money => {
-        dispatch(loadMoneySuccess(money));
+      .then(moneyStash => {
+        dispatch(loadMoneySuccess(moneyStash));
       })
       .catch(error => {
         throw error;

@@ -7,6 +7,7 @@
     "start": "react-scripts start",
     "start:api": "nodemon src/tools/apiServer.js localhost 3001",
     "build": "react-scripts build",
+    "build2": "webpack-dev-server --hot --progress --colors --host 0.0.0.0 --port 3001",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -16,6 +17,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
     "nodemon": "^2.0.2",
