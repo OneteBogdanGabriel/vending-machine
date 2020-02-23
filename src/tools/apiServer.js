@@ -1,71 +1,62 @@
+// const express = require("express");
+// const server = express();
+// const bodyParser = require("body-parser");
 
-const jsonServer = require("json-server");
-const server = jsonServer.create();
-const path = require("path");
-const router = jsonServer.router(path.join(__dirname, "db.json"));
-// console.log("ROUTER",router);
+// const low = require("lowdb");
+// const FileSync = require("lowdb/adapters/FileSync");
 
-console.log("JSON SERVER",jsonServer);
+// const adapter = new FileSync("src/tools/db.json");
+// const db = low(adapter);
 
-const middlewares = jsonServer.defaults();
+// server.use(bodyParser);
 
-// Set default middlewares (logger, static, cors and no-cache)
-server.use(middlewares);
+// // Simulate delay on all requests
+// // server.use(function(req, res, next) {
+// //   setTimeout(next, 2000);
+// // });
 
-// To handle POST, PUT and PATCH
-server.use(jsonServer.bodyParser);
+// server.get("/machine", function(req, res) {
+//   const dbState = db.getState();
+//   // console.log("DB STATE", dbState);
+//   // return res.status(200).send(dbState);
+//   res.send(dbState);
+//   next();
+// });
 
-// Simulate delay on all requests
-server.use(function(req, res, next) {
-  setTimeout(next, 2500);
+// server.get("/", function(req, res) {
+//   console.log("Whatevs");
+// });
+
+// const port = 3001;
+// server.listen(port, () => {
+//   console.log(`JSON Server is running on port ${port}`);
+// });
+
+var express = require("express");
+
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+
+const adapter = new FileSync("src/tools/db.json");
+const db = low(adapter);
+
+var app = express();
+
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
 });
 
-
-server.put("/machine", function(req, res, next) {
-  const error = validateItem(req.body);
-  if (error) {
-    res.status(400).send(error);
-  } else {
-    return res.status(200);
-    // next();
-  }
+app.get("/", function(req, res) {
+  res.send("Hello World");
 });
 
-server.get("/machine", function(req, res, next) {
-  const error_items = validateItems(req.body);
-  const error_money = validateMoneyStash(req.body);
-  if (error_items) {
-    res.status(400).send(error_items);
-  } else if (error_money) {
-    res.status(400).send(error_money);
-  } else {
-    res.status(200).send(req.body);
-    next();
-  }
+app.get("/machine", function(req, res) {
+  const dbState = db.getState();
+  res.send(dbState);
 });
 
-server.use(router);
-
-const port = 3001;
-server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
-});
-
-// Centralized logic
-
-function validateItem(item) {
-  if (!item.name) return "Name is required.";
-  if (!item.price) return "Price is required.";
-  if (!item.amount) return "Amount is required.";
-  return "";
-}
-
-function validateItems(items) {
-  if (items.length === 0) return "List of items is empty.";
-  return "";
-}
-
-function validateMoneyStash(moneyStash) {
-  if (moneyStash === {}) return "List of items is empty.";
-  return "";
+/* istanbul ignore next */
+if (!module.parent) {
+  app.listen(3001);
+  console.log("Express started on port 3001");
 }

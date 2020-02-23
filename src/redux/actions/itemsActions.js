@@ -21,8 +21,6 @@ export function loadItems() {
   };
 }
 
-console.log("ACTION", typeof(loadItems));
-
 export function updateItemSuccess(item) {
     return { type: types.UPDATE_ITEM_SUCCESS, item };
   }

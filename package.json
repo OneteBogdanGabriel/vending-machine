@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "prestart:api": "node src/tools/createMockDb.js",
-    "start:api": "node src/tools/apiServer.js",
+    "start:api": "nodemon src/tools/apiServer.js localhost 3001",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -17,6 +16,8 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
     "nodemon": "^2.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

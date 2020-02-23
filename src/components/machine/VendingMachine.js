@@ -4,45 +4,46 @@ import "./VendingMachine.css";
 import PropTypes from "prop-types";
 import VendingItems from "./VendingItemsContainer";
 import VendingInput from "./VendingInputContainer";
-import {
-  loadItems,
-  updateItem
-  // selectItem
-} from "../../redux/actions/itemsActions";
-import { loadMoney, updateMoney } from "../../redux/actions/moneyActions";
+import { bindActionCreators } from "redux";
+import * as itemsActions from "../../redux/actions/itemsActions";
+import * as moneyActions from "../../redux/actions/moneyActions";
 import { get } from "../../http/http";
 import { handleResponse } from "../../api/apiUtils";
 
 const baseUrl = "http://localhost:3001/machine";
 
-function VendingMachine({
-  items,
-  moneyStash,
-  loadItems,
-  updateItem,
-  // selectItem,
-  loadMoney,
-  updateMoney,
-  ...props
-}) {
+function VendingMachine(props) {
   // Save local state or dispatch redux action
-  console.log("ITEMS IN VM", items);
+  console.log("ITEMS IN VM", props);
+  const {
+    items,
+    moneyStash,
+    actions,
+    loadItems,
+    loadMoney,
+    updateItem,
+    updateMoney
+  } = props;
   useEffect(() => {
-    get("http://localhost:3001/machine").then(data => {
+    get(baseUrl).then(data => {
       console.log("DATA", data);
-      loadItems().catch(error => {
-        alert("Loading items failed" + error);
-      });
+      if (items.length === 0) {
+        actions.loadItems().catch(error => {
+          alert("Loading items failed" + error);
+        });
+      }
 
-      loadMoney().catch(error => {
-        alert("Loading money failed" + error);
-      });
+      if (moneyStash !== {}) {
+        actions.loadMoney().catch(error => {
+          alert("Loading money failed" + error);
+        });
+      }
     });
 
     // fetch(baseUrl).then(
     //   response => setState({ items: response.items }) // this triggers a re-render!
     // );
-  }, [loadItems, loadMoney]);
+  }, [actions, items.length, loadItems, loadMoney, moneyStash, props]);
 
   return (
     <div className="container">
@@ -83,12 +84,13 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = {
-  loadItems,
-  updateItem,
-  // selectItem,
-  loadMoney,
-  updateMoney
-};
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
+      loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch)
+    }
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(VendingMachine);

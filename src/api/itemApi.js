@@ -5,7 +5,7 @@ import { handleResponse, handleError } from "./apiUtils";
 // const baseUrl = SERVER_URL + "/machine";
 
 const baseUrl = "http://localhost:3001/machine";
-// console.log("API URL HERE", process.env.API_URL);
+
 export function updateItem(item) {
   return (
     console.log("HTTPPUT", item, JSON.stringify(item)) ||

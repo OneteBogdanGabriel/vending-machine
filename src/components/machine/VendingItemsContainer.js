@@ -3,6 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import * as itemsActions from "../../redux/actions/itemsActions";
 import PropTypes from "prop-types";
 import VendingItems from "./VendingItems";
+import store from "../../redux/reducers/storeReducer"
 
 const VendingItemsContainer = props => {
     const { items } = props;
@@ -15,7 +16,9 @@ const VendingItemsContainer = props => {
     }, [dispatch]);
     
     const handleDropSlot = (name) => {
+        store.subscribe(() => {
         setSlot(name);
+        })
     }
 
     const handleItemsSlot = (items) => {
@@ -28,7 +31,9 @@ const VendingItemsContainer = props => {
                 });
             }
         }
+        store.subscribe(() => {
         setPositionList(itemPosition);
+        })
     }
 
     return (

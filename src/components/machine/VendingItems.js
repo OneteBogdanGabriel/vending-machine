@@ -17,7 +17,7 @@ const VendingItems = (props) => {
 // key={props.id}
 const generateTable = (props) => {
     const { items } = props;
-    console.log("VENDINGITEMS", items);
+    
     let table = []
     let counter = 0;
     // while(counter < items.length)

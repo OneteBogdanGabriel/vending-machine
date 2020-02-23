@@ -25,8 +25,22 @@ export function updateMoney(money) {
   );
 }
 
+// export function getMoney() {
+//   return fetch(baseUrl)
+//     .then(handleResponse)
+//     .catch(handleError);
+// }
+
 export function getMoney() {
-  return fetch(baseUrl)
+  console.log("FETCH", fetch(baseUrl));
+  return fetch(baseUrl, {
+    method: "GET", // POST for create, PUT to update.
+    headers: {
+      "content-type": "application/json",
+      Accept: "application/json",
+      charset: "UTF-8"
+    }
+  })
     .then(handleResponse)
     .catch(handleError);
 }
