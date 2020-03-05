@@ -1,20 +1,20 @@
-import { handleResponse, handleError } from "./apiUtils";
+import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = "http://localhost:3001/machine";
+const baseUrl = 'http://localhost:3001/machine';
 
 export function updateItem(item) {
   return (
-    console.log("HTTPPUT", item, JSON.stringify(item)) ||
-    fetch(baseUrl + (item.id || ""), {
-      method: "PUT", // POST for create, PUT to update.
+    console.log('HTTPPUT', item, JSON.stringify(item))
+    || fetch(baseUrl + (item.id || ''), {
+      method: 'PUT', // POST for create, PUT to update.
       headers: {
-        "content-type": "application/json",
-        Accept: "application/json",
-        charset: "UTF-8"
+        'content-type': 'application/json',
+        Accept: 'application/json',
+        charset: 'UTF-8',
       },
       body: JSON.stringify({
-        ...item
-      })
+        ...item,
+      }),
     })
       .then(handleResponse)
       .catch(handleError)
@@ -22,14 +22,14 @@ export function updateItem(item) {
 }
 
 export function getItems() {
-  console.log("FETCH", fetch(baseUrl));
+  console.log('FETCH', fetch(baseUrl));
   return fetch(baseUrl, {
-    method: "GET", // POST for create, PUT to update.
+    method: 'GET', // POST for create, PUT to update.
     headers: {
-      "content-type": "application/json",
-      Accept: "application/json",
-      charset: "UTF-8"
-    }
+      'content-type': 'application/json',
+      Accept: 'application/json',
+      charset: 'UTF-8',
+    },
   })
     .then(handleResponse)
     .catch(handleError);

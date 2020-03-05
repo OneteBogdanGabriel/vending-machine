@@ -3,23 +3,23 @@ const initialState = {
   fetched: false,
   items: [],
   moneyStash: {},
-  error: null
+  error: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case "REQUEST_PENDING": {
+    case 'REQUEST_PENDING': {
       return { ...state, fetching: true };
     }
-    case "REQUEST_FULFILLED": {
+    case 'REQUEST_FULFILLED': {
       return {
         ...state,
         fetching: false,
         fetched: true,
-        items: action.payload
+        items: action.payload,
       };
     }
-    case "REQUEST_REJECTED": {
+    case 'REQUEST_REJECTED': {
       return { ...state, fetching: false, error: action.payload };
     }
     default:

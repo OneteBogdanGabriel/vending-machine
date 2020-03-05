@@ -1,6 +1,6 @@
-import * as types from "./actionTypes";
-import * as itemApi from "../../api/itemApi";
-import { beginApiCall, apiCallError } from "./apiStatusActions";
+import * as types from './actionTypes';
+import * as itemApi from '../../api/itemApi';
+import { beginApiCall, apiCallError } from './apiStatusActions';
 
 
 export function loadItemsSuccess(items) {
@@ -8,32 +8,31 @@ export function loadItemsSuccess(items) {
 }
 
 export function loadItems() {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(beginApiCall());
     return itemApi
       .getItems()
-      .then(items => {
+      .then((items) => {
         dispatch(loadItemsSuccess(items));
       })
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
   };
 }
 
 export function updateItemSuccess(item) {
-    return { type: types.UPDATE_ITEM_SUCCESS, item };
-  }
+  return { type: types.UPDATE_ITEM_SUCCESS, item };
+}
 
 export function updateItem(item) {
-  //eslint-disable-next-line no-unused-vars
-  return function(dispatch, getState) {
+  //  eslint-disable-next-line no-unused-vars
+  return function (dispatch, getState) {
     dispatch(beginApiCall());
     return itemApi
       .updateItem(item)
-      .then(dispatch(updateItemSuccess(item))
-      )
-      .catch(error => {
+      .then(dispatch(updateItemSuccess(item)))
+      .catch((error) => {
         dispatch(apiCallError(error));
         throw error;
       });

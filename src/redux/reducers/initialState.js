@@ -1,5 +1,4 @@
 export default {
-    items: [],
-    moneyStash: {}
-  };
-  
+  items: [],
+  moneyStash: {},
+};

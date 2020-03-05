@@ -1,13 +1,13 @@
-import React from "react";
-import { render } from "react-dom";
-import "./index.css";
-import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import configureStore from "./redux/store/configureStore";
-import { Provider } from "react-redux";
-import * as serviceWorker from "./serviceWorker";
-import initialState from "./redux/reducers/initialState";
+import React from 'react';
+import { render } from 'react-dom';
+import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import configureStore from './redux/store/configureStore';
+import * as serviceWorker from './serviceWorker';
+import initialState from './redux/reducers/initialState';
 
 const store = configureStore(initialState);
 
@@ -17,7 +17,7 @@ render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

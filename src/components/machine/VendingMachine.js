@@ -1,20 +1,20 @@
-import React, { setState, useEffect } from "react";
-import { connect } from "react-redux";
-import "./VendingMachine.css";
-import PropTypes from "prop-types";
-import VendingItems from "./VendingItemsContainer";
-import VendingInput from "./VendingInputContainer";
-import { bindActionCreators } from "redux";
-import * as itemsActions from "../../redux/actions/itemsActions";
-import * as moneyActions from "../../redux/actions/moneyActions";
-import { get } from "../../http/http";
-import { handleResponse } from "../../api/apiUtils";
+import React, { setState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import './VendingMachine.css';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import VendingItems from './VendingItemsContainer';
+import VendingInput from './VendingInputContainer';
+import * as itemsActions from '../../redux/actions/itemsActions';
+import * as moneyActions from '../../redux/actions/moneyActions';
+import { get } from '../../http/http';
+import { handleResponse } from '../../api/apiUtils';
 
-const baseUrl = "http://localhost:3001/machine";
+const baseUrl = 'http://localhost:3001/machine';
 
 function VendingMachine(props) {
   // Save local state or dispatch redux action
-  console.log("ITEMS IN VM", props);
+  console.log('ITEMS IN VM', props);
   const {
     items,
     moneyStash,
@@ -22,21 +22,21 @@ function VendingMachine(props) {
     loadItems,
     loadMoney,
     updateItem,
-    updateMoney
+    updateMoney,
   } = props;
 
   useEffect(() => {
-    get(baseUrl).then(data => {
-      console.log("DATA", data);
+    get(baseUrl).then((data) => {
+      console.log('DATA', data);
       if (items.length === 0) {
-        actions.loadItems().catch(error => {
-          alert("Loading items failed" + error);
+        actions.loadItems().catch((error) => {
+          alert(`Loading items failed${error}`);
         });
       }
 
       if (moneyStash !== {}) {
-        actions.loadMoney().catch(error => {
-          alert("Loading money failed" + error);
+        actions.loadMoney().catch((error) => {
+          alert(`Loading money failed${error}`);
         });
       }
     });
@@ -68,20 +68,21 @@ function VendingMachine(props) {
 }
 
 VendingMachine.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   items: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
   loadItems: PropTypes.func.isRequired,
   updateItem: PropTypes.func.isRequired,
   // selectItem: PropTypes.func.isRequired,
   loadMoney: PropTypes.func.isRequired,
-  updateMoney: PropTypes.func.isRequired
+  updateMoney: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
-  console.log("ITEMS IN VENDING", state);
+  console.log('ITEMS IN VENDING', state);
   return {
     items: state.items,
-    moneyStash: state.moneyStash
+    moneyStash: state.moneyStash,
   };
 }
 
@@ -89,8 +90,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
-      loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch)
-    }
+      loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
+    },
   };
 }
 
