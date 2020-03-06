@@ -8,6 +8,7 @@ const db = low(adapter);
 
 const cors = require('cors');
 
+const itemRouter = express.Router();
 const app = express();
 
 const port = process.env.PORT || 3001;
@@ -18,6 +19,20 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 
+itemRouter.route('/machine')
+  .get((req,res) => {
+    const response = db.getState();
+    // const response = db.getState().items;
+    // const response = { hello: 'hello all' };
+    res.json(response);
+  });
+itemRouter.route('/machine/:id')
+  .get((req,res) => {
+    const response = db.getState();
+    res.json(response);
+  });
+app.use(itemRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
@@ -27,11 +42,11 @@ app.get('/machine', (req, res) => {
   res.send(dbState);
 });
 
+app.listen(port, () => {
+  console.log(`JSON Server is running on port ${port}`);
+});
+
 // if (!module.parent) {
 //   app.listen(port);
 //   console.log('Express started on port ',port);
 // }
-
-app.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
-});

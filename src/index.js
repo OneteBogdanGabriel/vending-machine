@@ -6,11 +6,12 @@ import { Provider } from 'react-redux';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import configureStore from './redux/store/configureStore';
-import * as serviceWorker from './serviceWorker';
-import initialState from './redux/reducers/initialState';
+// import * as serviceWorker from './serviceWorker';
+// import initialState from './redux/reducers/initialState';
 
-const store = configureStore(initialState);
-
+// const store = configureStore(initialState);
+const store = configureStore();
+console.log('Store',store);
 render(
   <Provider store={store}>
     <Router>
@@ -20,4 +21,4 @@ render(
   document.getElementById('root'),
 );
 
-serviceWorker.unregister();
+// serviceWorker.unregister();

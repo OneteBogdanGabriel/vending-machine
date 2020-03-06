@@ -30,6 +30,7 @@ module.exports = {
     "no-console": "off",
     "space-infix-ops": "off",
     "semi-spacing": "off",
+    "no-debugger": "off",
     "block-spacing": "off",
     "comma-spacing": "off",
     "no-unused-vars": "warn",

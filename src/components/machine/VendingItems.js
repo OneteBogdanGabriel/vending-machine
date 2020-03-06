@@ -4,7 +4,7 @@ import './VendingItems.css';
 // key={props.id}
 const generateTable = (props) => {
   const { items } = props;
-
+  console.log('Items ', items);
   const table = [];
   let counter = 0;
   // while(counter < items.length)

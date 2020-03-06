@@ -11,9 +11,15 @@ const VendingItemsContainer = (props) => {
   const { slot, setSlot } = useState();
 
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   itemsActions.loadItems(dispatch);
+  // }, [dispatch]);
+
   useEffect(() => {
-    itemsActions.loadItems(dispatch);
-  }, [dispatch]);
+    if (items.length === 0) {
+      itemsActions.loadItems();
+    }
+  }, [items]);
 
   const handleDropSlot = (name) => {
     store.subscribe(() => {

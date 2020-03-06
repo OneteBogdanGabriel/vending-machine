@@ -30,12 +30,12 @@ const VendingInputContainer = (props) => {
   //     }
   //   }
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    itemsActions.loadItems(dispatch);
-    // itemsActions.selectItem(dispatch);
-    moneyActions.loadMoney(dispatch);
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   itemsActions.loadItems(dispatch);
+  //   // itemsActions.selectItem(dispatch);
+  //   moneyActions.loadMoney(dispatch);
+  // }, [dispatch]);
 
   const handleMoney = (event) => {
     const { value } = event.target;
@@ -127,7 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
     loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
     // selectItem: bindActionCreators(itemsActions.selectItem, dispatch),
     updateItem: bindActionCreators(itemsActions.updateItem, dispatch),
-    loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
+    // loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
     updateMoney: bindActionCreators(moneyActions.updateMoney, dispatch),
   },
 });

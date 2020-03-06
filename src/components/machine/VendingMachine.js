@@ -26,20 +26,19 @@ function VendingMachine(props) {
   } = props;
 
   useEffect(() => {
-    get(baseUrl).then((data) => {
-      console.log('DATA', data);
-      if (items.length === 0) {
-        actions.loadItems().catch((error) => {
-          alert(`Loading items failed${error}`);
-        });
-      }
+    // get(baseUrl).then((data) => {
+    if (items.length === 0) {
+      actions.loadItems().catch((error) => {
+        alert(`Loading courses failed${error}`);
+      });
+    }
 
-      if (moneyStash !== {}) {
-        actions.loadMoney().catch((error) => {
-          alert(`Loading money failed${error}`);
-        });
-      }
-    });
+    // if (moneyStash && moneyStash !== {}) {
+    //   actions.loadMoney().catch((error) => {
+    //     alert(`Loading money failed${error}`);
+    //   });
+    // }
+    // });
 
     // fetch(baseUrl).then(
     //   response => setState({ items: response.items }) // this triggers a re-render!
@@ -55,10 +54,10 @@ function VendingMachine(props) {
         <div className="column">
           <VendingInput
             items={items}
-            moneyStash={moneyStash}
+            // moneyStash={moneyStash}
             updateItem={updateItem}
             // selectItem={selectItem}
-            loadMoney={loadMoney}
+            // loadMoney={loadMoney}
             updateMoney={updateMoney}
           />
         </div>
@@ -70,7 +69,7 @@ function VendingMachine(props) {
 VendingMachine.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   items: PropTypes.array.isRequired,
-  moneyStash: PropTypes.object.isRequired,
+  // moneyStash: PropTypes.object.isRequired,
   loadItems: PropTypes.func.isRequired,
   updateItem: PropTypes.func.isRequired,
   // selectItem: PropTypes.func.isRequired,

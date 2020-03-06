@@ -10,14 +10,14 @@ export function loadMoneySuccess(moneyStash) {
 export function loadMoney() {
   return function (dispatch) {
     dispatch(beginApiCall());
-    return moneyApi
-      .getMoney()
-      .then((moneyStash) => {
-        dispatch(loadMoneySuccess(moneyStash));
-      })
-      .catch((error) => {
-        throw error;
-      });
+    return moneyApi;
+    // .getMoney()
+    // .then((moneyStash) => {
+    //   dispatch(loadMoneySuccess(moneyStash));
+    // })
+    // .catch((error) => {
+    //   throw error;
+    // });
   };
 }
 
@@ -26,7 +26,6 @@ export function updateMoneySuccess(money) {
 }
 
 export function updateMoney(money) {
-  //  eslint-disable-next-line no-unused-vars
   return function (dispatch, getState) {
     dispatch(beginApiCall());
     return moneyApi
