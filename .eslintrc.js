@@ -33,6 +33,7 @@ module.exports = {
     "no-debugger": "off",
     "block-spacing": "off",
     "comma-spacing": "off",
+    "no-param-reassign": "off",
     "no-unused-vars": "warn",
     "no-throw-literal": "warn",
     "comma-dangle": "warn",

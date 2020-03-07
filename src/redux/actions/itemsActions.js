@@ -8,7 +8,7 @@ export function loadItemsSuccess(items) {
 }
 
 export function loadItems() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(beginApiCall());
     return itemApi
       .getItems()
@@ -22,13 +22,16 @@ export function loadItems() {
 }
 
 export function updateItemSuccess(item) {
+  console.log('We reached here');
   return { type: types.UPDATE_ITEM_SUCCESS, item };
 }
 
-export function updateItem(item) {
-  //  eslint-disable-next-line no-unused-vars
-  return function (dispatch, getState) {
+export function updateItemSlot(item) {
+  console.log('INSIDE ACTIONS item ', JSON.stringify(item));
+  return (dispatch) => {
+    console.log('HCKING!');
     dispatch(beginApiCall());
+    console.log('CEHCKING!');
     return itemApi
       .updateItem(item)
       .then(dispatch(updateItemSuccess(item)))
@@ -38,18 +41,3 @@ export function updateItem(item) {
       });
   };
 }
-
-// export function selectItemSuccess(item) {
-//   return { type: types.SELECT_ITEM_SUCCESS, item };
-// }
-
-// export function selectItem(dispatch, getState) {
-//   return itemApi
-//     .getItem()
-//     .then(item => {
-//       dispatch(selectItemSuccess(item));
-//     })
-//     .catch(error => {
-//       throw error;
-//     });
-// }

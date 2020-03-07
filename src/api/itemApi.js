@@ -3,9 +3,9 @@ import { handleResponse, handleError } from './apiUtils';
 const baseUrl = 'http://localhost:3001/machine';
 
 export function updateItem(item) {
+  console.log('HTTPPUT', item, JSON.stringify(item));
   return (
-    console.log('HTTPPUT', item, JSON.stringify(item))
-    || fetch(baseUrl + (item.id || ''), {
+    fetch(baseUrl + (item.id || ''), {
       method: 'PUT', // POST for create, PUT to update.
       headers: {
         'content-type': 'application/json',

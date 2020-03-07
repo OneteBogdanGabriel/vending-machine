@@ -21,26 +21,43 @@ app.use(cors());
 
 itemRouter.route('/machine')
   .get((req,res) => {
-    const response = db.getState();
-    // const response = db.getState().items;
-    // const response = { hello: 'hello all' };
+    // const response = db.getState();
+    const response = db.getState().items;
     res.json(response);
   });
+
 itemRouter.route('/machine/:id')
   .get((req,res) => {
-    const response = db.getState();
+    const response = db.getState().items.findById(req.params.id, (err, item) => {
+      if (err) {
+        return res.send(err);
+      }
+      return item;
+    });
+    res.json(response);
+  })
+  .put((req, res) => {
+    const response = db.getState().items.findById(req.params.id, (err, item) => {
+      if (err) {
+        return res.send(err);
+      }
+      item.amount = req.body.amount;
+      item.itemNr = req.body.itemNr;
+      item.save();
+      return item;
+    });
     res.json(response);
   });
 app.use(itemRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
 
-app.get('/machine', (req, res) => {
-  const dbState = db.getState();
-  res.send(dbState);
-});
+// app.get('/machine', (req, res) => {
+//   const dbState = db.getState();
+//   res.send(dbState);
+// });
 
 app.listen(port, () => {
   console.log(`JSON Server is running on port ${port}`);

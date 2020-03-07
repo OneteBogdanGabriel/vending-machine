@@ -109,12 +109,11 @@ const VendingInputContainer = (props) => {
 
 VendingInputContainer.propTypes = {
   items: PropTypes.array.isRequired,
-  money: PropTypes.object.isRequired,
+  // money: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
-// eslint-disable-next-line no-unused-vars
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   items: state.items,
   itemSelected: state.itemSelected,
   itemAmount: state.itemAmount,
@@ -126,9 +125,9 @@ const mapDispatchToProps = (dispatch) => ({
   actions: {
     loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
     // selectItem: bindActionCreators(itemsActions.selectItem, dispatch),
-    updateItem: bindActionCreators(itemsActions.updateItem, dispatch),
+    updateItemSlot: bindActionCreators(itemsActions.updateItemSlot, dispatch),
     // loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
-    updateMoney: bindActionCreators(moneyActions.updateMoney, dispatch),
+    // updateMoney: bindActionCreators(moneyActions.updateMoney, dispatch),
   },
 });
 
