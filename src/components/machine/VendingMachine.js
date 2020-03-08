@@ -1,4 +1,4 @@
-import React, { setState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './VendingMachine.css';
 import PropTypes from 'prop-types';
@@ -7,12 +7,11 @@ import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
 import * as itemsActions from '../../redux/actions/itemsActions';
 import * as moneyActions from '../../redux/actions/moneyActions';
-import { get } from '../../http/http';
-import { handleResponse } from '../../api/apiUtils';
 
-function VendingMachine(props) {
+const VendingMachine = (props) => {
   const {
     items,
+    vendingItems,
     moneyStash,
     actions,
     loadItems,
@@ -21,8 +20,10 @@ function VendingMachine(props) {
     updateMoney,
   } = props;
 
-  if (items.length === 0) {
+  if (items && items.length === 0) {
+    // all items, including moneyStash
     actions.loadItems().catch((error) => {
+      // eslint-disable-next-line no-alert
       alert(`Loading Items failed${error}`);
     });
   }
@@ -31,47 +32,48 @@ function VendingMachine(props) {
     <div className="container">
       <div className="row">
         <div className="column">
-          <VendingItems items={items} loadItems={loadItems} updateItemSlot={updateItemSlot} />
+          <VendingItems vendingItems={vendingItems} loadItems={loadItems} updateItemSlot={updateItemSlot} />
         </div>
         <div className="column">
           <VendingInput
-            items={items}
-            // moneyStash={moneyStash}
+            vendingItems={vendingItems}
+            moneyStash={moneyStash}
             updateItemSlot={updateItemSlot}
             // selectItem={selectItem}
-            // loadMoney={loadMoney}
             updateMoney={updateMoney}
           />
         </div>
       </div>
     </div>
   );
-}
-
-VendingMachine.propTypes = {
-  // items: PropTypes.array.isRequired,
-  // moneyStash: PropTypes.object.isRequired,
-  // loadItems: PropTypes.func.isRequired,
-  // updateItemSlot: PropTypes.func.isRequired,
-  // selectItem: PropTypes.func.isRequired,
-  // loadMoney: PropTypes.func.isRequired,
-  // updateMoney: PropTypes.func.isRequired,
 };
 
+// VendingMachine.propTypes = {
+//   items: PropTypes.object.isRequired,
+//   vendingItems: PropTypes.array.isRequired,
+//   moneyStash: PropTypes.object.isRequired,
+//   loadItems: PropTypes.func.isRequired,
+//   updateItemSlot: PropTypes.func.isRequired,
+//   // selectItem: PropTypes.func.isRequired,
+//   updateMoney: PropTypes.func.isRequired,
+//   actions: PropTypes.object.isRequired,
+// };
+
 function mapStateToProps(state) {
-  // console.log('ITEMS IN VENDING', state);
+  // these get passed down to the children components, and items (which includes{items[] & moneyStash{}}) has to be here too
   return {
     items: state.items,
-    moneyStash: state.moneyStash,
+    vendingItems: state.items.items,
+    moneyStash: state.items.moneyStash,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
+      // money also loaded here
       loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
       updateItemSlot: bindActionCreators(itemsActions.updateItemSlot, dispatch),
-      loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
     },
   };
 }

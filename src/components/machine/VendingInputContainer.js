@@ -107,11 +107,11 @@ const VendingInputContainer = (props) => {
   );
 };
 
-VendingInputContainer.propTypes = {
-  items: PropTypes.array.isRequired,
-  // money: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
-};
+// VendingInputContainer.propTypes = {
+//   items: PropTypes.array.isRequired,
+//   // money: PropTypes.object.isRequired,
+//   actions: PropTypes.object.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   items: state.items,

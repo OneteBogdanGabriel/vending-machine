@@ -27,7 +27,7 @@ export function updateItemSuccess(item) {
 }
 
 export function updateItemSlot(item) {
-  console.log('INSIDE ACTIONS item ', JSON.stringify(item));
+  // console.log('INSIDE ACTIONS item ', JSON.stringify(item));
   return (dispatch) => {
     console.log('HCKING!');
     dispatch(beginApiCall());

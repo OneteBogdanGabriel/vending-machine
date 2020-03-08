@@ -7,9 +7,8 @@ import VendingItems from './VendingItems';
 import store from '../../redux/reducers/storeReducer';
 
 const VendingItemsContainer = (props) => {
-  const { items, item } = props;
+  const { vendingItems } = props;
   const { slot, setSlot } = useState();
-  const [vmItem, setVmItem] = useState(item);
 
   const handleDropSlot = (name) => {
     store.subscribe(() => {
@@ -50,7 +49,7 @@ const VendingItemsContainer = (props) => {
       handleDropSlot={handleDropSlot}
       // handleItemsSlot={handleItemsSlot}
       handleItemNr={handleItemNr}
-      items={items}
+      items={vendingItems}
       slot={slot}
     />
   );
@@ -62,10 +61,10 @@ const VendingItemsContainer = (props) => {
 //   // actions: PropTypes.object.isRequired,
 // };
 
-const mapStateToProps = (state) => ({
-  items: state.items,
-  // positionList: state.positionList,
-});
+// const mapStateToProps = (state) => ({
+//   items: state.items,
+//   // positionList: state.positionList,
+// });
 
 // function mapDispatchToProps(dispatch) {
 //   return {
@@ -75,4 +74,4 @@ const mapStateToProps = (state) => ({
 //   };
 // }
 
-export default connect(mapStateToProps)(VendingItemsContainer);
+export default VendingItemsContainer;

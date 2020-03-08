@@ -8,25 +8,32 @@ const db = low(adapter);
 
 const cors = require('cors');
 
-const itemRouter = express.Router();
+const router = express.Router();
 const app = express();
 
 const port = process.env.PORT || 3001;
+
+app.use(cors());
 
 // app.use((req, res, next) => {
 //   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
 // });
 
-app.use(cors());
-
-itemRouter.route('/machine')
+router.route('/machine')
   .get((req,res) => {
     // const response = db.getState();
-    const response = db.getState().items;
-    res.json(response);
+    const response = db.getState();
+    return res.json(response);
+  })
+  .put((req, res) => {
+    const response = db.getState().moneyStash;
+    response.stash = req.body.stash;
+    response.inPurchase = req.body.inPurchase;
+    response.save();
+    return res.json(response);
   });
 
-itemRouter.route('/machine/:id')
+router.route('/machine/:id')
   .get((req,res) => {
     const response = db.getState().items.findById(req.params.id, (err, item) => {
       if (err) {
@@ -34,7 +41,7 @@ itemRouter.route('/machine/:id')
       }
       return item;
     });
-    res.json(response);
+    return res.json(response);
   })
   .put((req, res) => {
     const response = db.getState().items.findById(req.params.id, (err, item) => {
@@ -46,24 +53,26 @@ itemRouter.route('/machine/:id')
       item.save();
       return item;
     });
-    res.json(response);
+    return res.json(response);
   });
-app.use(itemRouter);
+app.use(router);
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
 // app.get('/machine', (req, res) => {
-//   const dbState = db.getState();
+//   const dbState = db.getState().items;
 //   res.send(dbState);
 // });
 
-app.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`JSON Server is running on port ${port}`);
+// });
 
-// if (!module.parent) {
-//   app.listen(port);
-//   console.log('Express started on port ',port);
-// }
+if (!module.parent) {
+  app.listen(port);
+  console.log('Express started on port ',port);
+}
+
+module.exports = router;

@@ -12,24 +12,26 @@ const generateSlot = (item, position) => (
 
 const generateTable = (props) => {
   const { items, handleItemNr } = props;
+
   const table = [];
   let counter = 0;
-  while (counter < items.length) {
-    for (let i = 1; i < 4; i++) {
-      const children = [];
-      for (let j = 1; j < 5; j++) {
-        const position = `${i}${j}`;
-        const item = items[counter];
+  if (items && items.length > 0) {
+    while (counter < items.length) {
+      for (let i = 1; i < 4; i++) {
+        const children = [];
+        for (let j = 1; j < 5; j++) {
+          const position = `${i}${j}`;
+          const item = items[counter];
 
-        handleItemNr(item, position);
-        // debugger;
-        children.push(
-          generateSlot(item, position),
-        );
-        counter++;
+          handleItemNr(item, position);
+          children.push(
+            generateSlot(item, position),
+          );
+          counter++;
+        }
+
+        table.push(<tr>{children}</tr>);
       }
-
-      table.push(<tr>{children}</tr>);
     }
   }
   return table;
