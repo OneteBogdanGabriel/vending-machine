@@ -3,7 +3,7 @@ import { handleResponse, handleError } from './apiUtils';
 const baseUrl = 'http://localhost:3001/machine';
 
 export function updateItem(item) {
-  console.log('HTTPPUT', item, JSON.stringify(item));
+  console.log('HTTPPUT', JSON.stringify(item));
   return (
     fetch(baseUrl + (item.id || ''), {
       method: 'PUT', // POST for create, PUT to update.

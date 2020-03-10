@@ -22,16 +22,13 @@ export function loadItems() {
 }
 
 export function updateItemSuccess(item) {
-  console.log('We reached here');
   return { type: types.UPDATE_ITEM_SUCCESS, item };
 }
 
 export function updateItemSlot(item) {
   // console.log('INSIDE ACTIONS item ', JSON.stringify(item));
   return (dispatch) => {
-    console.log('HCKING!');
     dispatch(beginApiCall());
-    console.log('CEHCKING!');
     return itemApi
       .updateItem(item)
       .then(dispatch(updateItemSuccess(item)))

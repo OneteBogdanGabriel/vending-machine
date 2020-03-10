@@ -1,8 +1,8 @@
-.itemsList {
-}
 
 .itemSlot {
   border: solid;
+  width: 25%;
+  vertical-align: baseline !important;
 }
 
 .dropSlot {

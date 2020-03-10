@@ -34,6 +34,8 @@ module.exports = {
     "block-spacing": "off",
     "comma-spacing": "off",
     "no-param-reassign": "off",
+    "no-alert": "off",
+    "object-curly-newline": "warn",
     "no-unused-vars": "warn",
     "no-throw-literal": "warn",
     "comma-dangle": "warn",

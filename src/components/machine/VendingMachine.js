@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './VendingMachine.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
-import * as itemsActions from '../../redux/actions/itemsActions';
-import * as moneyActions from '../../redux/actions/moneyActions';
+import { loadItems, updateItemSlot } from '../../redux/actions/itemsActions';
+// import * as moneyActions from '../../redux/actions/moneyActions';
 
 const VendingMachine = (props) => {
   const {
@@ -14,16 +14,12 @@ const VendingMachine = (props) => {
     vendingItems,
     moneyStash,
     actions,
-    loadItems,
-    loadMoney,
-    updateItemSlot,
     updateMoney,
   } = props;
 
   if (items && items.length === 0) {
     // all items, including moneyStash
     actions.loadItems().catch((error) => {
-      // eslint-disable-next-line no-alert
       alert(`Loading Items failed${error}`);
     });
   }
@@ -31,10 +27,10 @@ const VendingMachine = (props) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="column">
+        <div className="column columnItems">
           <VendingItems vendingItems={vendingItems} loadItems={loadItems} updateItemSlot={updateItemSlot} />
         </div>
-        <div className="column">
+        <div className="column columnInput">
           <VendingInput
             vendingItems={vendingItems}
             moneyStash={moneyStash}
@@ -72,8 +68,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       // money also loaded here
-      loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
-      updateItemSlot: bindActionCreators(itemsActions.updateItemSlot, dispatch),
+      loadItems: bindActionCreators(loadItems, dispatch),
+      updateItemSlot: bindActionCreators(updateItemSlot, dispatch),
     },
   };
 }

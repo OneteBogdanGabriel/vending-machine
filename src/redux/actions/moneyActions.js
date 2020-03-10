@@ -25,7 +25,7 @@ export function updateMoneySuccess(money) {
   return { type: types.UPDATE_MONEY_SUCCESS, money };
 }
 
-export function updateMoney(money) {
+export function updateMoneyStash(money) {
   return function (dispatch, getState) {
     dispatch(beginApiCall());
     return moneyApi

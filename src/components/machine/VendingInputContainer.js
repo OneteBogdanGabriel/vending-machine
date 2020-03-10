@@ -1,82 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
-import * as itemsActions from '../../redux/actions/itemsActions';
-import * as moneyActions from '../../redux/actions/moneyActions';
+import { updateItemSlot } from '../../redux/actions/itemsActions';
+import { updateMoneyStash } from '../../redux/actions/moneyActions';
 import VendingInput from './VendingInput';
 
 const VendingInputContainer = (props) => {
-  const { items, itemNr, actions } = props;
+  const {
+    vendingItems, moneyStash, actions,
+  } = props;
 
-  const [money, setMoney] = useState(0);
+  // console.log('VENDING INPUT PROPS', props);
+  const [inputMoney, setInputMoney] = useState(0);
   const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(undefined);
   const [itemAmount, setItemAmount] = useState(0);
+  const [newItem, setNewItem] = useState(undefined);
+  const [newMoney, setNewMoney] = useState(0);
 
+  function handleChange(event) {
+    event.preventDefault();
+    const { name, value } = event.target;
+    // console.log('INput Money', value);
+    if (name === 'money') {
+      setInputMoney(value);
+    } else {
+      setItemSelected(value);
+    }
+  }
 
-  //   const componentDidMount = () => {
-  //     if (items.length === 0) {
-  //       actions.loadItems().catch(error => {
-  //         alert("Loading items failed" + error);
-  //       });
-  //     }
-
-  //     if (money.stash === 0) {
-  //       actions.loadMoney().catch(error => {
-  //         alert("Loading money failed" + error);
-  //       });
-  //     }
-  //   }
-
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   itemsActions.loadItems(dispatch);
-  //   // itemsActions.selectItem(dispatch);
-  //   moneyActions.loadMoney(dispatch);
-  // }, [dispatch]);
-
-  const handleMoney = (event) => {
+  const handleSaveMoney = (event) => {
+    event.preventDefault();
     const { value } = event.target;
-    setMoney(value);
+    setInputMoney(value);
   };
 
-  const handleItemSelection = (event) => {
+  const handleItemAmount = (item) => {
+    const { amount } = item;
+    setItemAmount(amount - 1);
+  };
+
+  const setItem = (item) => {
+    const newObj = { ...item, amount: itemAmount };
+    setNewItem(newObj).then(actions.updateItemSlot(newItem));
+  };
+
+  const setMoney = (profit) => {
+    const newObj = { ...moneyStash, stash: profit };
+    setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
+  };
+
+  const purchaseValidation = (value) => {
+    let isValid = false;
     const listOfNr = [];
-    let isValid = true;
     for (let i = 1; i < 4; i++) {
       for (let j = 1; j < 6; j++) {
-        listOfNr.push(`${i}${j}`);
+        // eslint-disable-next-line radix
+        listOfNr.push(parseInt(`${i}${j}`));
       }
     }
+
     listOfNr.forEach((nr) => {
-      if (listOfNr !== nr) {
-        isValid = false;
+      if (value === nr) {
+        isValid = true;
       }
     });
 
-    const handleItemAmount = (item) => {
-      const { amount } = item;
-      setItemAmount(amount - 1);
-    };
+    return isValid;
+  };
 
-    if (!isValid) {
+  const handlePurchaseItem = (event) => {
+    const { value } = event.target;
+    if (purchaseValidation(value) === false) {
       alert('This nr does not exist! Please try again');
-      // throw new Error("Invalid input!");
-      throw 'Invalid input! ';
-      // Promise.resolve(Error("Invalid input!"));
+      throw new Error('Invalid input!');
+      // throw 'Invalid input! ';
     } else {
-      const { value } = event.target;
       setItemSelected(value);
       if (itemSelected) {
-        const result = items.filter((nr) => nr === itemSelected);
+        const result = vendingItems.filter((item) => item.itemNr === itemSelected);
         if (result) {
-          if (result.price <= money) {
-            handleItemAmount(result);
-            if (result.price < money) {
-              setRest(money - result.price);
+          if (result.price <= inputMoney) {
+            if (result.price < inputMoney) {
+              setRest(inputMoney - result.price);
             }
+            handleItemAmount(result);
+            // handle updating item & money store
+            setItem(result);
+            setMoney(result.price);
+
             return result.name;
           }
         }
@@ -85,9 +99,10 @@ const VendingInputContainer = (props) => {
     return '';
   };
 
-  const handlePurchase = (event) => {
+  const handleSaveItem = (event) => {
     event.preventDefault();
-    handleItemSelection(event)
+    console.log('PURCHASE VALUE ', event.target.value);
+    handlePurchaseItem(event)
       .then(() => {
         toast.success('Item purchased');
       })
@@ -98,36 +113,31 @@ const VendingInputContainer = (props) => {
 
   return (
     <VendingInput
-      items={items}
-      handleMoney={handleMoney}
-      handlePurchase={handlePurchase}
+      handleSaveMoney={handleSaveMoney}
+      handleSaveItem={handleSaveItem}
+      onChange={handleChange}
       rest={rest}
-      itemAmount={itemAmount}
     />
   );
 };
 
-// VendingInputContainer.propTypes = {
-//   items: PropTypes.array.isRequired,
-//   // money: PropTypes.object.isRequired,
-//   actions: PropTypes.object.isRequired,
-// };
+VendingInputContainer.propTypes = {
+  // items: PropTypes.object.isRequired,
+  vendingItems: PropTypes.array.isRequired,
+  moneyStash: PropTypes.object.isRequired,
+  // actions: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   items: state.items,
-  itemSelected: state.itemSelected,
-  itemAmount: state.itemAmount,
-  money: state.money,
-  rest: state.rest,
+  vendingItems: state.items.items,
+  moneyStash: state.items.money,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: {
-    loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
-    // selectItem: bindActionCreators(itemsActions.selectItem, dispatch),
-    updateItemSlot: bindActionCreators(itemsActions.updateItemSlot, dispatch),
-    // loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
-    // updateMoney: bindActionCreators(moneyActions.updateMoney, dispatch),
+    updateItemSlot: bindActionCreators(updateItemSlot, dispatch),
+    updateMoneyStash: bindActionCreators(updateMoneyStash, dispatch),
   },
 });
 

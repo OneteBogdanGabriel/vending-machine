@@ -5,7 +5,8 @@ import './VendingItems.css';
 const generateSlot = (item, position) => (
   <td className="itemSlot" key={item ? item.id : position}>
     <p>{item ? item.name : 'Empty'}</p>
-    <p>{item ? item.amount : 'None'}</p>
+    <p>{ `Price: ${item ? item.price : 0}` }</p>
+    <p>{ `${item ? item.amount : 'None'} in stock` }</p>
     <p>{`NR ${position}`}</p>
   </td>
 );
@@ -22,7 +23,7 @@ const generateTable = (props) => {
         for (let j = 1; j < 5; j++) {
           const position = `${i}${j}`;
           const item = items[counter];
-
+          console.log('GENERATING POSITION ', position);
           handleItemNr(item, position);
           children.push(
             generateSlot(item, position),
@@ -30,7 +31,7 @@ const generateTable = (props) => {
           counter++;
         }
 
-        table.push(<tr>{children}</tr>);
+        table.push(<tr className="itemRow">{children}</tr>);
       }
     }
   }
@@ -46,7 +47,7 @@ const displayPurchase = (item) => {
 
 
 const VendingItems = (props) => (
-  <>
+  <div className="displaySection">
     <table className="itemsList">
       <tbody>
         {generateTable(props)}
@@ -55,7 +56,7 @@ const VendingItems = (props) => (
     <div className="dropSlot">
       {displayPurchase(props)}
     </div>
-  </>
+  </div>
 );
 
 // VendingItems.propTypes = {

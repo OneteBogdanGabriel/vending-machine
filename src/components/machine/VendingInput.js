@@ -3,28 +3,36 @@ import './VendingInput.css';
 
 const VendingInput = (props) => {
   const {
-    // eslint-disable-next-line react/prop-types
-    items, handleMoney, handlePurchase, rest, itemAmount,
+    handleSaveMoney, handleSaveItem, onChange, rest, itemNr, moneyAmount,
   } = props;
-
   return (
     <div className="UI">
-      <form onSubmit={handleMoney}>
+      <form onSubmit={handleSaveMoney}>
         <div className="inputFields">
           <label>Insert money</label>
-          <input name="money" type="number" />
+          <input
+            name="money"
+            type="number"
+            value={moneyAmount}
+            onChange={onChange}
+          />
         </div>
       </form>
-      <form onSubmit={handlePurchase}>
+      <form onSubmit={handleSaveItem}>
         <div className="inputFields">
           <label>Select Item</label>
-          <input name="item" type="number" />
-        </div>
-        <div className="inputFields">
-          <label>Rest</label>
-          <p>{rest && rest > 0 ? rest : ''}</p>
+          <input
+            name="item"
+            type="number"
+            value={itemNr}
+            onChange={onChange}
+          />
         </div>
       </form>
+      <div className="inputFields">
+        <label>Rest</label>
+        <p>{rest && rest > 0 ? rest : ''}</p>
+      </div>
     </div>
   );
 };
