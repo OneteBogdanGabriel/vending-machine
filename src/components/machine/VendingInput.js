@@ -3,24 +3,28 @@ import './VendingInput.css';
 
 const VendingInput = (props) => {
   const {
-    handleSaveMoney, handleSaveItem, onChange, rest, itemNr, moneyAmount,
+    handleSaveMoney, handleSaveItem, onChange, rest, itemNr, moneyStash,
   } = props;
+  console.log('moneystash post update ',moneyStash);
   return (
     <div className="UI">
       <form onSubmit={handleSaveMoney}>
         <div className="inputFields">
-          <label>Insert money</label>
+          <label>
+            Money:
+            {moneyStash ? moneyStash.inPurchase : 0}
+          </label>
           <input
             name="money"
             type="number"
-            value={moneyAmount}
+            // value={moneyStash ? moneyStash.inPurchase : 0}
             onChange={onChange}
           />
         </div>
       </form>
       <form onSubmit={handleSaveItem}>
         <div className="inputFields">
-          <label>Select Item</label>
+          <label>Item</label>
           <input
             name="item"
             type="number"

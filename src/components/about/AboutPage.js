@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './AboutPage.css';
 
 const AboutPage = () => (
-  <div>
+  <div className="about">
     <h2>About</h2>
     <p>
       This app is a vending machine. Place your sum, then select a nr,

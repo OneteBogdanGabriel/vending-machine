@@ -4,7 +4,7 @@ import { beginApiCall, apiCallError } from './apiStatusActions';
 
 
 export function loadItemsSuccess(items) {
-  return { type: types.LOAD_ITEMS_SUCCESS, items };
+  return { type: types.LOAD_ITEMS_SUCCESS, payload: items };
 }
 
 export function loadItems() {
@@ -26,7 +26,6 @@ export function updateItemSuccess(item) {
 }
 
 export function updateItemSlot(item) {
-  // console.log('INSIDE ACTIONS item ', JSON.stringify(item));
   return (dispatch) => {
     dispatch(beginApiCall());
     return itemApi

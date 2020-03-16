@@ -23,7 +23,7 @@ const generateTable = (props) => {
         const position = parseInt(`${i}${j}`);
         if (counter < items.length) {
           const item = items[counter];
-          console.log('Counter ', counter);
+          // console.log('Counter ', counter);
           if (item && item.itemNr === null) {
             handleItemNr(item, position);
           }

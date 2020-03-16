@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import items from './itemsReducer';
 import moneyStash from './moneyReducer';
-import store from './storeReducer';
-import api from './apiStatusReducer';
+// import store from './storeReducer';
+// import api from './apiStatusReducer';
 
 const rootReducer = combineReducers({
-  api,
+  // api,
   items,
   moneyStash,
-  store,
+  // store,
 });
 
 export default rootReducer;

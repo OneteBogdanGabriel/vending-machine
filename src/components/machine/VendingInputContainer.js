@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -12,7 +12,7 @@ const VendingInputContainer = (props) => {
     vendingItems, moneyStash, actions,
   } = props;
 
-  // console.log('VENDING INPUT PROPS', props);
+  console.log('VENDING INPUT PROPS', props);
   const [inputMoney, setInputMoney] = useState(0);
   const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(undefined);
@@ -20,22 +20,29 @@ const VendingInputContainer = (props) => {
   const [newItem, setNewItem] = useState(undefined);
   const [newMoney, setNewMoney] = useState(0);
 
-  function handleChange(event) {
+  const handleChange = useCallback((event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    // console.log('INput Money', value);
+    console.log('INput Money', value);
     if (name === 'money') {
-      setInputMoney(value);
-    } else {
-      setItemSelected(value);
+      // eslint-disable-next-line radix
+      return setInputMoney(parseInt(value));
     }
-  }
+    return setItemSelected(value);
+  },[setInputMoney,setItemSelected]);
 
   const handleSaveMoney = (event) => {
     event.preventDefault();
-    const { value } = event.target;
-    setInputMoney(value);
+    const newObj = { ...moneyStash, inPurchase: inputMoney };
+    console.log('moneySTash ', newObj);
+    // setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
+    setNewMoney(newObj);
   };
+
+  if (newMoney && newMoney !== 0) {
+    // console.log('NEWM MONEY ', newMoney);
+    actions.updateMoneyStash(newMoney);
+  }
 
   const handleItemAmount = (item) => {
     const { amount } = item;
@@ -47,8 +54,9 @@ const VendingInputContainer = (props) => {
     setNewItem(newObj).then(actions.updateItemSlot(newItem));
   };
 
-  const setMoney = (profit) => {
-    const newObj = { ...moneyStash, stash: profit };
+  const setPurchase = (profit) => {
+    const newStash = moneyStash.stash + profit;
+    const newObj = { ...moneyStash, stash: newStash, inPurchase: 0 };
     setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
   };
 
@@ -73,6 +81,7 @@ const VendingInputContainer = (props) => {
 
   const handlePurchaseItem = (event) => {
     const { value } = event.target;
+    console.log('VALUEEEE ', value);
     if (purchaseValidation(value) === false) {
       alert('This nr does not exist! Please try again');
       throw new Error('Invalid input!');
@@ -89,7 +98,7 @@ const VendingInputContainer = (props) => {
             handleItemAmount(result);
             // handle updating item & money store
             setItem(result);
-            setMoney(result.price);
+            setPurchase(result.price);
 
             return result.name;
           }
@@ -117,6 +126,7 @@ const VendingInputContainer = (props) => {
       handleSaveItem={handleSaveItem}
       onChange={handleChange}
       rest={rest}
+      moneyStash={moneyStash}
     />
   );
 };
@@ -125,13 +135,12 @@ VendingInputContainer.propTypes = {
   // items: PropTypes.object.isRequired,
   vendingItems: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
-  // actions: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  items: state.items,
-  vendingItems: state.items.items,
-  moneyStash: state.items.money,
+  vendingItems: state.items,
+  moneyStash: state.moneyStash,
 });
 
 const mapDispatchToProps = (dispatch) => ({

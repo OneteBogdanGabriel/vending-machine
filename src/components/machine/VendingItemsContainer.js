@@ -28,29 +28,19 @@ const VendingItemsContainer = (props) => {
   //   actions.updateItemSlot(newItem);
   // },[newItem]);
 
-  const updateItemSlotNr = (obj, counter) => {
-    if (counter < vendingItems.length) {
-      counter++;
-      return {
-        newItem: obj,
-      };
-    }
-    return null;
-  };
-
   const handleItemNr = (slotItem, position) => {
-    console.log('Slot ', slotItem);
-    console.log('slotNr ', position);
+    // console.log('Slot ', slotItem);
+    // console.log('slotNr ', position);
     // eslint-disable-next-line prefer-const
     // let counter = 0;
     const newObj = { ...slotItem, itemNr: position };
-    console.log('newObj ', newObj);
+    // console.log('newObj ', newObj);
     // setNewItem(updateItemSlotNr(newObj,counter));
-    setNewItem(newObj);
-    console.log('newItem ',newItem);
-    if (newItem && newItem !== {}) {
-      actions.updateItemSlot(newItem);
-    }
+    // setNewItem(newObj);
+    // console.log('newItem ',newItem);
+    // if (newItem && newItem !== {}) {
+    //   actions.updateItemSlot(newItem);
+    // }
 
     // setNewItem(newObj).then(actions.updateItemSlot(newItem));
   };
@@ -67,13 +57,12 @@ const VendingItemsContainer = (props) => {
 };
 
 VendingItemsContainer.propTypes = {
-  // items: PropTypes.array.isRequired,
   vendingItems: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  vendingItems: state.items.items,
+  vendingItems: state.items,
 });
 
 function mapDispatchToProps(dispatch) {

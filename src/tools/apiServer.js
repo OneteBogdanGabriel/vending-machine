@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParse = require('body-parser');
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
@@ -13,6 +14,7 @@ const app = express();
 
 const port = process.env.PORT || 3001;
 
+// app.use(bodyParse);
 app.use(cors());
 
 // app.use((req, res, next) => {
@@ -25,11 +27,14 @@ router.route('/machine')
     const response = db.getState();
     return res.json(response);
   })
+// router.route('/machine/:moneyStash')
   .put((req, res) => {
     const response = db.getState().moneyStash;
-    response.stash = req.body.stash;
-    response.inPurchase = req.body.inPurchase;
-    response.save();
+    if (req.body) {
+      response.stash = req.body.stash;
+      response.inPurchase = req.body.inPurchase;
+      response.save();
+    }
     return res.json(response);
   });
 

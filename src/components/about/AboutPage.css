@@ -1,0 +1,8 @@
+.about {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+    padding-top: 100px;
+}

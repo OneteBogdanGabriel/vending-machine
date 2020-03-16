@@ -4,29 +4,30 @@ import { beginApiCall, apiCallError } from './apiStatusActions';
 
 
 export function loadMoneySuccess(moneyStash) {
-  return { type: types.LOAD_MONEY_SUCCESS, moneyStash };
+  return { type: types.LOAD_MONEY_SUCCESS, payload: moneyStash };
 }
 
 export function loadMoney() {
   return function (dispatch) {
     dispatch(beginApiCall());
-    return moneyApi;
-    // .getMoney()
-    // .then((moneyStash) => {
-    //   dispatch(loadMoneySuccess(moneyStash));
-    // })
-    // .catch((error) => {
-    //   throw error;
-    // });
+    return moneyApi
+      .getMoney()
+      .then((moneyStash) => {
+        dispatch(loadMoneySuccess(moneyStash));
+      })
+      .catch((error) => {
+        throw error;
+      });
   };
 }
 
-export function updateMoneySuccess(money) {
-  return { type: types.UPDATE_MONEY_SUCCESS, money };
+export function updateMoneySuccess(moneyStash) {
+  console.log('Money Action Update ', moneyStash);
+  return { type: types.UPDATE_MONEY_SUCCESS, payload: moneyStash };
 }
 
 export function updateMoneyStash(money) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     dispatch(beginApiCall());
     return moneyApi
       .updateMoney(money)
@@ -34,6 +35,6 @@ export function updateMoneyStash(money) {
       .catch((error) => {
         dispatch(apiCallError(error));
         throw error;
-      });
+      }); // .ignoreElements()
   };
 }
