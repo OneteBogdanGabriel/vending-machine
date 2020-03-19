@@ -20,7 +20,7 @@ const VendingInputContainer = (props) => {
   const [newItem, setNewItem] = useState(undefined);
   const [newMoney, setNewMoney] = useState(0);
 
-  const handleChange = useCallback((event) => {
+  const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     console.log('INput Money', value);
@@ -28,8 +28,15 @@ const VendingInputContainer = (props) => {
       // eslint-disable-next-line radix
       return setInputMoney(parseInt(value));
     }
-    return setItemSelected(value);
-  },[setInputMoney,setItemSelected]);
+    if (name === 'item') {
+      return setItemSelected(value);
+    }
+    return '';
+  };
+
+  useEffect(() => {
+    actions.updateMoneyStash(newMoney);
+  },[newMoney]);
 
   const handleSaveMoney = (event) => {
     event.preventDefault();
@@ -39,10 +46,10 @@ const VendingInputContainer = (props) => {
     setNewMoney(newObj);
   };
 
-  if (newMoney && newMoney !== 0) {
-    // console.log('NEWM MONEY ', newMoney);
-    actions.updateMoneyStash(newMoney);
-  }
+  // if (newMoney && newMoney !== 0) {
+  //   // console.log('NEWM MONEY ', newMoney);
+  //   actions.updateMoneyStash(newMoney);
+  // }
 
   const handleItemAmount = (item) => {
     const { amount } = item;
@@ -69,13 +76,13 @@ const VendingInputContainer = (props) => {
         listOfNr.push(parseInt(`${i}${j}`));
       }
     }
-
-    listOfNr.forEach((nr) => {
-      if (value === nr) {
-        isValid = true;
-      }
-    });
-
+    if (moneyStash && moneyStash.inPurchase > 0) {
+      listOfNr.forEach((nr) => {
+        if (value === nr) {
+          isValid = true;
+        }
+      });
+    }
     return isValid;
   };
 
@@ -87,21 +94,44 @@ const VendingInputContainer = (props) => {
       throw new Error('Invalid input!');
       // throw 'Invalid input! ';
     } else {
-      setItemSelected(value);
-      if (itemSelected) {
-        const result = vendingItems.filter((item) => item.itemNr === itemSelected);
-        if (result) {
-          if (result.price <= inputMoney) {
-            if (result.price < inputMoney) {
-              setRest(inputMoney - result.price);
-            }
-            handleItemAmount(result);
-            // handle updating item & money store
-            setItem(result);
-            setPurchase(result.price);
+      // setItemSelected(value);
+      // if (itemSelected) {
+      //   const result = vendingItems.filter((item) => item.itemNr === itemSelected);
+      //   if (result) {
+      //     if (result.price <= inputMoney) {
+      //       if (result.price < inputMoney) {
+      //         setRest(inputMoney - result.price);
+      //       }
+      //       handleItemAmount(result);
+      //       // handle updating item & money store
+      //       setItem(result);
+      //       setPurchase(result.price);
 
-            return result.name;
+      //       return result.name;
+      //     }
+      //   }
+      // }
+
+      const result = vendingItems.filter((item) => {
+        console.log('item result ', item);
+        if (item.itemNr === itemSelected) {
+          return item;
+        }
+        return '';
+      });
+      console.log('Result ', result);
+      if (result) {
+        if (result.price <= inputMoney) {
+          if (result.price < inputMoney) {
+            setRest(inputMoney - result.price);
           }
+          // handleItemAmount(result);
+
+          // handle updating item & money store
+          setItem(result);
+          // setPurchase(result.price);
+
+          return result.name;
         }
       }
     }
@@ -111,13 +141,13 @@ const VendingInputContainer = (props) => {
   const handleSaveItem = (event) => {
     event.preventDefault();
     console.log('PURCHASE VALUE ', event.target.value);
-    handlePurchaseItem(event)
-      .then(() => {
-        toast.success('Item purchased');
-      })
-      .catch((error) => {
-        alert('Purchase Failed ! ', error);
-      });
+    handlePurchaseItem(event);
+    // .then(() => {
+    //   toast.success('Item purchased');
+    // })
+    // .catch((error) => {
+    //   alert('Purchase Failed ! ', error);
+    // });
   };
 
   return (
