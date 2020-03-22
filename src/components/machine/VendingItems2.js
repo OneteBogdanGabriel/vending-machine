@@ -11,8 +11,43 @@ const generateSlot = (item, position) => (
   </div>
 );
 
+// const generateTable = (props) => {
+//   const { items, handleItemNr } = props;
+//   const gridView = [];
+//   let counter = 0;
+//   if (items && items.length > 0) {
+//     for (let i = 1; i < 4; i++) {
+//       const children = [];
+//       for (let j = 1; j < 5; j++) {
+//         // eslint-disable-next-line radix
+//         const position = parseInt(`${i}${j}`);
+//         if (counter < items.length) {
+//           const item = items[counter];
+//           // console.log('Counter ', counter);
+//           if (item && item.itemNr === null) {
+//             handleItemNr(item, position);
+//           }
+//           children.push(
+//             generateSlot(item, position),
+//           );
+
+//           counter++;
+//         } else {
+//           children.push(
+//             generateSlot(null, position),
+//           );
+//           counter++;
+//         }
+//       }
+
+//       gridView.push(<div className="row itemRow" key={i.toString()}>{children}</div>);
+//     }
+//   }
+//   return gridView;
+// };
+
 const generateTable = (props) => {
-  const { items, handleItemNr } = props;
+  const { items } = props;
   const gridView = [];
   let counter = 0;
   if (items && items.length > 0) {
@@ -24,9 +59,6 @@ const generateTable = (props) => {
         if (counter < items.length) {
           const item = items[counter];
           // console.log('Counter ', counter);
-          if (item && item.itemNr === null) {
-            handleItemNr(item, position);
-          }
           children.push(
             generateSlot(item, position),
           );
@@ -39,7 +71,6 @@ const generateTable = (props) => {
           counter++;
         }
       }
-
       gridView.push(<div className="row itemRow" key={i.toString()}>{children}</div>);
     }
   }

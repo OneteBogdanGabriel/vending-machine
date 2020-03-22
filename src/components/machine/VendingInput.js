@@ -3,9 +3,9 @@ import './VendingInput.css';
 
 const VendingInput = (props) => {
   const {
-    handleSaveMoney, handleSaveItem, onChange, rest, itemNr, moneyStash,
+    handleSaveMoney, handleSaveItem, onChange, rest, moneyStash,
   } = props;
-  console.log('moneystash post update ',moneyStash);
+
   return (
     <div className="UI">
       <form onSubmit={handleSaveMoney}>
@@ -28,7 +28,7 @@ const VendingInput = (props) => {
           <input
             name="item"
             type="number"
-            value={itemNr}
+            // value={itemNr}
             onChange={onChange}
           />
         </div>

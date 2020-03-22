@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from './apiUtils';
 
-const baseUrl = 'http://localhost:3001/machine';
+const baseUrl = 'http://localhost:3001/machine/';
 
 export function updateItem(item) {
   console.log('HTTPPUT', JSON.stringify(item));

@@ -34,9 +34,9 @@ const VendingItemsContainer = (props) => {
     // eslint-disable-next-line prefer-const
     // let counter = 0;
     const newObj = { ...slotItem, itemNr: position };
-    // console.log('newObj ', newObj);
+    console.log('newObj ', newObj);
     // setNewItem(updateItemSlotNr(newObj,counter));
-    // setNewItem(newObj);
+    setNewItem(newObj);
     // console.log('newItem ',newItem);
     // if (newItem && newItem !== {}) {
     //   actions.updateItemSlot(newItem);
@@ -44,6 +44,30 @@ const VendingItemsContainer = (props) => {
 
     // setNewItem(newObj).then(actions.updateItemSlot(newItem));
   };
+
+  useEffect(() => {
+    let counter = 0;
+
+    for (let i = 1; i < 4; i++) {
+      for (let j = 1; j < 5; j++) {
+        // eslint-disable-next-line radix
+        const position = parseInt(`${i}${j}`);
+        console.log('HERE WE ARE', vendingItems);
+        if (counter < vendingItems.length) {
+          const item = vendingItems[counter];
+          // handleItemNr(item, position);
+          console.log('Item, ',item);
+          const newObj = { ...item, itemNr: position };
+          console.log('newObj ', newObj);
+          actions.updateItemSlot(newObj);
+          // setNewItem(newObj);
+          // console.log('newItem ',newItem);
+        }
+        counter++;
+        // setCounter(counter+1);
+      }
+    }
+  }, []);
 
   const callbackItemNr = useCallback(handleItemNr, []);
 

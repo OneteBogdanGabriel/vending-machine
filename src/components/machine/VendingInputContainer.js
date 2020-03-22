@@ -12,7 +12,6 @@ const VendingInputContainer = (props) => {
     vendingItems, moneyStash, actions,
   } = props;
 
-  console.log('VENDING INPUT PROPS', props);
   const [inputMoney, setInputMoney] = useState(0);
   const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(undefined);
@@ -23,13 +22,13 @@ const VendingInputContainer = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    console.log('INput Money', value);
+    // eslint-disable-next-line radix
+    const val = parseInt(value);
     if (name === 'money') {
-      // eslint-disable-next-line radix
-      return setInputMoney(parseInt(value));
+      return setInputMoney(val);
     }
     if (name === 'item') {
-      return setItemSelected(value);
+      return setItemSelected(val);
     }
     return '';
   };
@@ -67,7 +66,7 @@ const VendingInputContainer = (props) => {
     setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
   };
 
-  const purchaseValidation = (value) => {
+  const purchaseValidation = () => {
     let isValid = false;
     const listOfNr = [];
     for (let i = 1; i < 4; i++) {
@@ -76,9 +75,13 @@ const VendingInputContainer = (props) => {
         listOfNr.push(parseInt(`${i}${j}`));
       }
     }
+    console.log('Money ', moneyStash);
+    console.log('Item selected ', itemSelected);
+    console.log('List ', listOfNr);
     if (moneyStash && moneyStash.inPurchase > 0) {
       listOfNr.forEach((nr) => {
-        if (value === nr) {
+        if (itemSelected === nr) {
+          console.log('Nr ', nr);
           isValid = true;
         }
       });
@@ -86,10 +89,8 @@ const VendingInputContainer = (props) => {
     return isValid;
   };
 
-  const handlePurchaseItem = (event) => {
-    const { value } = event.target;
-    console.log('VALUEEEE ', value);
-    if (purchaseValidation(value) === false) {
+  const handlePurchaseItem = () => {
+    if (purchaseValidation() === false) {
       alert('This nr does not exist! Please try again');
       throw new Error('Invalid input!');
       // throw 'Invalid input! ';
@@ -115,15 +116,16 @@ const VendingInputContainer = (props) => {
       const result = vendingItems.filter((item) => {
         console.log('item result ', item);
         if (item.itemNr === itemSelected) {
-          return item;
+          return true;
         }
-        return '';
-      });
+        return false;
+      })[0];
       console.log('Result ', result);
       if (result) {
         if (result.price <= inputMoney) {
           if (result.price < inputMoney) {
             setRest(inputMoney - result.price);
+            console.log('Rest',rest);
           }
           // handleItemAmount(result);
 

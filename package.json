@@ -33,6 +33,7 @@
     "react-toastify": "^5.5.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
+    "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.3.0"
   },
   "eslintConfig": {
