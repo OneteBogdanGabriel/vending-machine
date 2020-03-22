@@ -19,17 +19,25 @@ export default function itemsReducer(state = [], action) {
       return action.item;
 
     case LOAD_ITEMS_PENDING:
-      return null;
+      return {
+        ...state.items,
+        isFulfilled: false,
+        data: [],
+        pending: true,
+      };
 
     case LOAD_ITEMS_FULFILLED:
       return {
+        ...state.items,
         isFulfilled: true,
+        pending: false,
         data: action.payload[action.meta.selector],
       };
 
     case LOAD_ITEMS_REJECTED:
       return {
-        isRejected: true,
+        ...state.items,
+        pending: false,
         error: action.payload,
       };
     default:

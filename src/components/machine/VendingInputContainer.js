@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
-import { updateItemSlot } from '../../redux/actions/itemsActions';
+import { updateItemAction } from '../../redux/actions/itemsActions';
 import { updateMoneyStash } from '../../redux/actions/moneyActions';
 import VendingInput from './VendingInput';
 
@@ -34,7 +34,9 @@ const VendingInputContainer = (props) => {
   };
 
   useEffect(() => {
-    actions.updateMoneyStash(newMoney);
+    if (newMoney !== 0) {
+      actions.updateMoneyStash(newMoney);
+    }
   },[newMoney]);
 
   const handleSaveMoney = (event) => {
@@ -57,7 +59,7 @@ const VendingInputContainer = (props) => {
 
   const setItem = (item) => {
     const newObj = { ...item, amount: itemAmount };
-    setNewItem(newObj).then(actions.updateItemSlot(newItem));
+    setNewItem(newObj).then(actions.updateItemAction(newItem));
   };
 
   const setPurchase = (profit) => {
@@ -171,13 +173,13 @@ VendingInputContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  vendingItems: state.items,
+  vendingItems: state.items.data,
   moneyStash: state.moneyStash,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: {
-    updateItemSlot: bindActionCreators(updateItemSlot, dispatch),
+    updateItemAction: bindActionCreators(updateItemAction, dispatch),
     updateMoneyStash: bindActionCreators(updateMoneyStash, dispatch),
   },
 });

@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
-import * as itemApi from '../../api/itemApi';
+import { updateItem } from '../../api/itemApi';
+// import * as itemApi from '../../api/itemApi';
 import { beginApiCall, apiCallError } from './apiStatusActions';
 
 // export const loadItemsAction = () => ({
@@ -25,20 +26,6 @@ export const loadItemsAction = () => ({
   },
 });
 
-export function updateItemSuccess(item) {
-  return { type: types.UPDATE_ITEM_SUCCESS, payload: item };
-}
-
-export function updateItemSlot(item) {
-  console.log('REDUCER ITEM ', item);
-  return (dispatch) => {
-    dispatch(beginApiCall());
-    return itemApi
-      .updateItem(item)
-      .then(dispatch(updateItemSuccess(item)))
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+export function updateItemAction(item) {
+  return { type: types.UPDATE_ITEM_SUCCESS, payload: updateItem(item) };
 }

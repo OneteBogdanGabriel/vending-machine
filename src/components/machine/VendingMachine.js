@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
-import { loadItemsAction, updateItemSlot } from '../../redux/actions/itemsActions';
+import { loadItemsAction, updateItemAction } from '../../redux/actions/itemsActions';
 import { loadMoney } from '../../redux/actions/moneyActions';
 
 const VendingMachine = (props) => {
@@ -15,8 +15,10 @@ const VendingMachine = (props) => {
     updateMoney,
     actions: { boundLoadItemsAction },
   } = props;
+
+  console.log('ITEMS in VM ', items);
   useEffect(() => {
-    if (items && items.length === 0) {
+    if (items && items.data && items.data.length === 0) {
       // all items, including moneyStash
       console.log('xxx boundLoadItemsAction ', boundLoadItemsAction);
       boundLoadItemsAction();
@@ -28,20 +30,20 @@ const VendingMachine = (props) => {
       //   alert(`Loading Money failed${error}`);
       // });
     }
-  });
+  }, []);
 
 
   return (
     <div className="container">
       <div className="row">
         <div className="column columnItems">
-          <VendingItems vendingItems={items && items.length > 0 ? items : undefined} loadItems={loadItemsAction} updateItemSlot={updateItemSlot} />
+          <VendingItems vendingItems={items && items.data && items.data.length > 0 ? items.data : undefined} loadItems={loadItemsAction} updateItemAction={updateItemAction} />
         </div>
         <div className="column columnInput">
           <VendingInput
-            vendingItems={items && items.length > 0 ? items : undefined}
-            moneyStash={moneyStash && moneyStash !== {} ? items : undefined}
-            updateItemSlot={updateItemSlot}
+            vendingItems={items && items.data && items.data.length > 0 ? items.data : undefined}
+            moneyStash={moneyStash && moneyStash !== {} ? items && items.data : undefined}
+            updateItemAction={updateItemAction}
             // selectItem={selectItem}
             updateMoney={updateMoney}
           />
@@ -54,7 +56,7 @@ const VendingMachine = (props) => {
 VendingMachine.propTypes = {
   items: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
-  // updateItemSlot: PropTypes.func.isRequired,
+  // updateItemAction: PropTypes.func.isRequired,
   // selectItem: PropTypes.func.isRequired,
   updateMoney: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
@@ -62,7 +64,6 @@ VendingMachine.propTypes = {
 
 function mapStateToProps(state) {
   // these get passed down to the children components, and items (which includes{items[] & moneyStash{}}) has to be here too
-  console.log('VM ITEMS, ', state.items);
   return {
     items: state.items,
     moneyStash: state.moneyStash,
@@ -74,7 +75,7 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadMoney: bindActionCreators(loadMoney, dispatch),
       boundLoadItemsAction: bindActionCreators(loadItemsAction, dispatch),
-      updateItemSlot: bindActionCreators(updateItemSlot, dispatch),
+      updateItemAction: bindActionCreators(updateItemAction, dispatch),
     },
   };
 }

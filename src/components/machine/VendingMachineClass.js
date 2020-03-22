@@ -22,7 +22,7 @@ class VendingMachine extends React.Component {
       actions,
       loadItems,
       loadMoney,
-      updateItemSlot,
+      updateItemAction,
       updateMoney,
     } = this.props;
     if (items.length === 0) {
@@ -37,13 +37,13 @@ class VendingMachine extends React.Component {
       <div className="container">
         <div className="row">
           <div className="column">
-            <VendingItems items={this.items} loadItems={this.loadItems} updateItemSlot={this.updateItemSlot} />
+            <VendingItems items={this.items} loadItems={this.loadItems} updateItemAction={this.updateItemAction} />
           </div>
           <div className="column">
             <VendingInput
               items={this.items}
               // moneyStash={moneyStash}
-              updateItemSlot={this.updateItemSlot}
+              updateItemAction={this.updateItemAction}
               // selectItem={selectItem}
               // loadMoney={loadMoney}
               updateMoney={this.updateMoney}
@@ -58,7 +58,7 @@ VendingMachine.propTypes = {
   items: PropTypes.array.isRequired,
   // moneyStash: PropTypes.object.isRequired,
   loadItems: PropTypes.func.isRequired,
-  updateItemSlot: PropTypes.func.isRequired,
+  updateItemAction: PropTypes.func.isRequired,
   // selectItem: PropTypes.func.isRequired,
   loadMoney: PropTypes.func.isRequired,
   updateMoney: PropTypes.func.isRequired,
@@ -76,7 +76,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadItems: bindActionCreators(itemsActions.loadItems, dispatch),
-      updateItemSlot: bindActionCreators(itemsActions.updateItemSlot, dispatch),
+      updateItemAction: bindActionCreators(itemsActions.updateItemAction, dispatch),
       loadMoney: bindActionCreators(moneyActions.loadMoney, dispatch),
     },
   };

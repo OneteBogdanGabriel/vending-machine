@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParse = require('body-parser');
+const bodyParser = require('body-parser');
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
@@ -14,52 +14,41 @@ const app = express();
 
 const port = process.env.PORT || 3001;
 
-// app.use(bodyParse);
+app.use(bodyParser.json());
 app.use(cors());
 
 // app.use((req, res, next) => {
 //   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
 // });
+router.route('/machine/:id')
+  .put((req, res) => {
+    // console.log('xxx req.params', req.body, res.body, req.params);
+    const response = db.update(
+      'items',
+      (items) => items.map((item) => ({
+        ...item,
+        ...(req.params.id === item.id ? { amount: req.body.amount, itemNr: req.body.itemNr } : {}),
+      })),
+    ).write();
+    return res.json(response);
+  });
+
 
 router.route('/machine')
   .get((req,res) => {
-    // const response = db.getState();
     const response = db.getState();
     return res.json(response);
   })
-// router.route('/machine/:moneyStash')
   .put((req, res) => {
     const response = db.getState().moneyStash;
-    if (req.body) {
-      response.stash = req.body.stash;
-      response.inPurchase = req.body.inPurchase;
-      response.save();
+    if (Object.keys(req.body).length > 0) {
+      response.stash = req.body.stash || response.stash;
+      response.inPurchase = req.body.inPurchase || response.inPurchase;
+      db.set('moneyStash', response).write();
     }
     return res.json(response);
   });
 
-router.route('/machine/:id')
-  .get((req,res) => {
-    const response = db.getState().items.findById(req.params.id, (err, item) => {
-      if (err) {
-        return res.send(err);
-      }
-      return item;
-    });
-    return res.json(response);
-  })
-  .put((req, res) => {
-    const response = db.getState().items.findById(req.params.id, (err, item) => {
-      if (err) {
-        return res.send(err);
-      }
-      item.amount = req.body.amount;
-      item.itemNr = req.body.itemNr;
-      item.save();
-      return item;
-    });
-    return res.json(response);
-  });
 app.use(router);
 
 app.get('/', (req, res) => {

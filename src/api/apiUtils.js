@@ -1,5 +1,4 @@
 export async function handleResponse(response) {
-  console.log('RESPONSE API ',response);
   if (response.ok) return response.json();
   if (response.status === 400) {
     const error = await response.text();

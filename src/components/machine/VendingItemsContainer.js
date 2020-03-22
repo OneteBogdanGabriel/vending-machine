@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { updateItemSlot } from '../../redux/actions/itemsActions';
+import { updateItemAction } from '../../redux/actions/itemsActions';
 import VendingItems from './VendingItems2';
 // import store from '../../redux/reducers/storeReducer';
 
 const VendingItemsContainer = (props) => {
-  const { vendingItems, actions } = props;
-
+  const { vendingItems: { data, isFulfilled }, actions } = props;
+  console.log('VENDING ITEMS CONTAINER ', data);
   // const [slotNr, setSlotNr] = useState(0);
   const [newItem, setNewItem] = useState(null);
 
@@ -20,12 +20,12 @@ const VendingItemsContainer = (props) => {
 
   // useEffect(() => {
   //   console.log('USEFFECT');
-  //   actions.updateItemSlot((prevItem) => ([...prevItem, ...newItem]));
+  //   actions.updateItemAction((prevItem) => ([...prevItem, ...newItem]));
   // },[newItem]);
 
   // useEffect(() => {
   //   console.log('USEFFECT');
-  //   actions.updateItemSlot(newItem);
+  //   actions.updateItemAction(newItem);
   // },[newItem]);
 
   const handleItemNr = (slotItem, position) => {
@@ -35,39 +35,41 @@ const VendingItemsContainer = (props) => {
     // let counter = 0;
     const newObj = { ...slotItem, itemNr: position };
     console.log('newObj ', newObj);
-    // setNewItem(updateItemSlotNr(newObj,counter));
+    // setNewItem(updateItemActionNr(newObj,counter));
     setNewItem(newObj);
     // console.log('newItem ',newItem);
     // if (newItem && newItem !== {}) {
-    //   actions.updateItemSlot(newItem);
+    //   actions.updateItemAction(newItem);
     // }
 
-    // setNewItem(newObj).then(actions.updateItemSlot(newItem));
+    // setNewItem(newObj).then(actions.updateItemAction(newItem));
   };
 
   useEffect(() => {
     let counter = 0;
 
-    for (let i = 1; i < 4; i++) {
-      for (let j = 1; j < 5; j++) {
-        // eslint-disable-next-line radix
-        const position = parseInt(`${i}${j}`);
-        console.log('HERE WE ARE', vendingItems);
-        if (counter < vendingItems.length) {
-          const item = vendingItems[counter];
-          // handleItemNr(item, position);
-          console.log('Item, ',item);
-          const newObj = { ...item, itemNr: position };
-          console.log('newObj ', newObj);
-          actions.updateItemSlot(newObj);
-          // setNewItem(newObj);
-          // console.log('newItem ',newItem);
+    if (isFulfilled) {
+      for (let i = 1; i < 4; i++) {
+        for (let j = 1; j < 5; j++) {
+          // eslint-disable-next-line radix
+          const position = parseInt(`${i}${j}`);
+          console.log('HERE WE ARE', data);
+          if (counter < data.length) {
+            const item = data[counter];
+            // handleItemNr(item, position);
+            console.log('Item, ',item);
+            const newObj = { ...item, itemNr: position };
+            console.log('newObj ', newObj);
+            actions.updateItemAction(newObj);
+            // setNewItem(newObj);
+            // console.log('newItem ',newItem);
+          }
+          counter++;
+          // setCounter(counter+1);
         }
-        counter++;
-        // setCounter(counter+1);
       }
     }
-  }, []);
+  }, [data, isFulfilled]);
 
   const callbackItemNr = useCallback(handleItemNr, []);
 
@@ -75,7 +77,7 @@ const VendingItemsContainer = (props) => {
     <VendingItems
       // handleDropSlot={handleDropSlot}
       handleItemNr={callbackItemNr}
-      items={vendingItems}
+      items={data}
     />
   );
 };
@@ -92,7 +94,7 @@ const mapStateToProps = (state) => ({
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      updateItemSlot: bindActionCreators(updateItemSlot, dispatch),
+      updateItemAction: bindActionCreators(updateItemAction, dispatch),
     },
   };
 }
