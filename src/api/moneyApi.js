@@ -2,23 +2,23 @@ import { handleResponse, handleError } from './apiUtils';
 
 const baseUrl = 'http://localhost:3001/machine/';
 
-export function updateMoney(money) {
+export function updateMoney(moneyStash) {
+  console.log('HTTPPUT', moneyStash, JSON.stringify(moneyStash));
   return (
-    console.log('HTTPPUT', money, JSON.stringify(money))
     // || fetch(baseUrl + (money.stash || ''), {
-      || fetch(baseUrl, {
-        method: 'PUT', // POST for create, PUT to update.
-        headers: {
-          'content-type': 'application/json',
-          accept: 'application/json',
-          charset: 'UTF-8',
-        },
-        body: JSON.stringify({
-          ...money,
-        }),
-      })
-        .then(handleResponse)
-        .catch(handleError)
+    fetch(baseUrl, {
+      method: 'PUT', // POST for create, PUT to update.
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+        charset: 'UTF-8',
+      },
+      body: JSON.stringify({
+        ...moneyStash,
+      }),
+    })
+      .then(handleResponse)
+      .catch(handleError)
   );
 }
 

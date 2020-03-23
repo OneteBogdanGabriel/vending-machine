@@ -7,8 +7,9 @@ import VendingItems from './VendingItems2';
 // import store from '../../redux/reducers/storeReducer';
 
 const VendingItemsContainer = (props) => {
-  const { vendingItems: { data, isFulfilled }, actions } = props;
-  console.log('VENDING ITEMS CONTAINER ', data);
+  // const { vendingItems: { data, isFulfilled }, actions } = props;
+  const { vendingItems, actions } = props;
+  // console.log('VENDING ITEMS CONTAINER ', data);
   // const [slotNr, setSlotNr] = useState(0);
   const [newItem, setNewItem] = useState(null);
 
@@ -47,15 +48,15 @@ const VendingItemsContainer = (props) => {
 
   useEffect(() => {
     let counter = 0;
-
-    if (isFulfilled) {
+    // when promise from action is fulfilled
+    if (vendingItems.isFulfilled) {
       for (let i = 1; i < 4; i++) {
         for (let j = 1; j < 5; j++) {
           // eslint-disable-next-line radix
           const position = parseInt(`${i}${j}`);
-          console.log('HERE WE ARE', data);
-          if (counter < data.length) {
-            const item = data[counter];
+          console.log('HERE WE ARE', vendingItems.data);
+          if (counter < vendingItems.data.length) {
+            const item = vendingItems.data[counter];
             // handleItemNr(item, position);
             console.log('Item, ',item);
             const newObj = { ...item, itemNr: position };
@@ -69,7 +70,7 @@ const VendingItemsContainer = (props) => {
         }
       }
     }
-  }, [data, isFulfilled]);
+  }, [vendingItems.data, vendingItems.isFulfilled]);
 
   const callbackItemNr = useCallback(handleItemNr, []);
 
@@ -77,7 +78,7 @@ const VendingItemsContainer = (props) => {
     <VendingItems
       // handleDropSlot={handleDropSlot}
       handleItemNr={callbackItemNr}
-      items={data}
+      items={vendingItems.data}
     />
   );
 };

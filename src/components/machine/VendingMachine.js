@@ -6,46 +6,63 @@ import { bindActionCreators } from 'redux';
 import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
 import { loadItemsAction, updateItemAction } from '../../redux/actions/itemsActions';
-import { loadMoney } from '../../redux/actions/moneyActions';
+import { loadMoneyAction, updateMoneyAction } from '../../redux/actions/moneyActions';
 
 const VendingMachine = (props) => {
   const {
     items,
     moneyStash,
     updateMoney,
-    actions: { boundLoadItemsAction },
+    actions: {
+      boundLoadItemsAction, boundLoadMoneyAction, boundUpdateItemAction, boundMoneyItemAction,
+    },
   } = props;
 
-  console.log('ITEMS in VM ', items);
+  console.log('ITEMS in VM ', props);
   useEffect(() => {
-    if (items && items.data && items.data.length === 0) {
-      // all items, including moneyStash
-      console.log('xxx boundLoadItemsAction ', boundLoadItemsAction);
-      boundLoadItemsAction();
-      // actions.loadItems().catch((error) => {
-      //   alert(`Loading Items failed${error}`);
-      // });
+    // actions.loadItems().catch((error) => {
+    //   alert(`Loading Items failed${error}`);
+    // });
 
-      // actions.loadMoney().catch((error) => {
-      //   alert(`Loading Money failed${error}`);
-      // });
+    // actions.loadMoney().catch((error) => {
+    //   alert(`Loading Money failed${error}`);
+    // });
+
+    if (items && items.data && items.data.length === 0) {
+      boundLoadItemsAction().catch((error) => {
+        alert(`Loading Items failed${error}`);
+      });
+    }
+
+    if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
+      boundLoadMoneyAction().catch((error) => {
+        alert(`Loading Money failed${error}`);
+      });
     }
   }, []);
 
+  let vendingItems;
+  if (items && items.data && items.data.length > 0) {
+    vendingItems = items.data;
+  }
 
+  // let vendingMoney;
+  // if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
+  //   vendingMoney = moneyStash.data;
+  // }
+  console.log('Money Stash????????? ', moneyStash);
   return (
     <div className="container">
       <div className="row">
         <div className="column columnItems">
-          <VendingItems vendingItems={items && items.data && items.data.length > 0 ? items.data : undefined} loadItems={loadItemsAction} updateItemAction={updateItemAction} />
+          <VendingItems vendingItems={vendingItems} updateItemAction={boundUpdateItemAction} />
         </div>
         <div className="column columnInput">
           <VendingInput
-            vendingItems={items && items.data && items.data.length > 0 ? items.data : undefined}
+            vendingItems={vendingItems}
             moneyStash={moneyStash && moneyStash !== {} ? items && items.data : undefined}
-            updateItemAction={updateItemAction}
-            // selectItem={selectItem}
-            updateMoney={updateMoney}
+            updateItemAction={boundUpdateItemAction}
+            updateMoney={boundMoneyItemAction}
           />
         </div>
       </div>
@@ -56,8 +73,6 @@ const VendingMachine = (props) => {
 VendingMachine.propTypes = {
   items: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
-  // updateItemAction: PropTypes.func.isRequired,
-  // selectItem: PropTypes.func.isRequired,
   updateMoney: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
 };
@@ -73,9 +88,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadMoney: bindActionCreators(loadMoney, dispatch),
+      boundLoadMoneyAction: bindActionCreators(loadMoneyAction, dispatch),
       boundLoadItemsAction: bindActionCreators(loadItemsAction, dispatch),
-      updateItemAction: bindActionCreators(updateItemAction, dispatch),
+      boundUpdateItemAction: bindActionCreators(updateItemAction, dispatch),
+      boundUpdateMoneyAction: bindActionCreators(updateMoneyAction, dispatch),
     },
   };
 }

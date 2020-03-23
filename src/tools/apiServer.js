@@ -15,14 +15,16 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors());// whitelists everything, so we dont have to do Acces-Control
 
 // app.use((req, res, next) => {
 //   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
 // });
+
 router.route('/machine/:id')
   .put((req, res) => {
     // console.log('xxx req.params', req.body, res.body, req.params);
+    // check lowdb doc for commands
     const response = db.update(
       'items',
       (items) => items.map((item) => ({
@@ -42,6 +44,7 @@ router.route('/machine')
   .put((req, res) => {
     const response = db.getState().moneyStash;
     if (Object.keys(req.body).length > 0) {
+      // update || return previous value
       response.stash = req.body.stash || response.stash;
       response.inPurchase = req.body.inPurchase || response.inPurchase;
       db.set('moneyStash', response).write();

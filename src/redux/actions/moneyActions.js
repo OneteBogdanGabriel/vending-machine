@@ -1,40 +1,48 @@
 import * as types from './actionTypes';
-import * as moneyApi from '../../api/moneyApi';
-import { beginApiCall, apiCallError } from './apiStatusActions';
+import { getMoney, updateMoney } from '../../api/moneyApi'; //* as moneyApi
+// import { beginApiCall, apiCallError } from './apiStatusActions';
 
+// This way involves using a Thunk, inside of which you make the api call and
+// dispatch the action creator, which is defined separatly
+// export function loadMoneySuccess(moneyStash) {
+//   return { type: types.LOAD_MONEY_SUCCESS, payload: moneyStash };
+// }
 
-export function loadMoneySuccess(moneyStash) {
-  return { type: types.LOAD_MONEY_SUCCESS, payload: moneyStash };
+// export function loadMoney() {
+//   return function (dispatch) {
+//     dispatch(beginApiCall());
+//     return moneyApi
+//       .getMoney()
+//       .then((moneyStash) => {
+//         dispatch(loadMoneySuccess(moneyStash));
+//       })
+//       .catch((error) => {
+//         throw error;
+//       });
+//   };
+// }
+
+export function loadMoneyAction() {
+  return { type: types.LOAD_MONEY, payload: getMoney(), meta: { selector: 'moneyStash' } };
 }
 
-export function loadMoney() {
-  return function (dispatch) {
-    dispatch(beginApiCall());
-    return moneyApi
-      .getMoney()
-      .then((moneyStash) => {
-        dispatch(loadMoneySuccess(moneyStash));
-      })
-      .catch((error) => {
-        throw error;
-      });
-  };
+export function updateMoneyAction(moneyStash) {
+  return { type: types.UPDATE_MONEY, payload: updateMoney(moneyStash) };
 }
 
-export function updateMoneySuccess(moneyStash) {
-  console.log('Money Action Update ', moneyStash);
-  return { type: types.UPDATE_MONEY_SUCCESS, payload: moneyStash };
-}
+// export function updateMoneySuccess(moneyStash) {
+//   console.log('Money Action Update ', moneyStash);
+//   return { type: types.UPDATE_MONEY_SUCCESS, payload: moneyStash };
+// }
 
-export function updateMoneyStash(money) {
-  return function (dispatch) {
-    dispatch(beginApiCall());
-    return moneyApi
-      .updateMoney(money)
-      .then(dispatch(updateMoneySuccess(money)))
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      }); // .ignoreElements()
-  };
-}
+// export function updateMoneyAction(money) {
+//   return function (dispatch) {
+//     dispatch(beginApiCall());
+//     return updateMoney(money)
+//       .then(dispatch(updateMoneySuccess(money)))
+//       .catch((error) => {
+//         dispatch(apiCallError(error));
+//         throw error;
+//       }); // .ignoreElements()
+//   };
+// }

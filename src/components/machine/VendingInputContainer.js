@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import { updateItemAction } from '../../redux/actions/itemsActions';
-import { updateMoneyStash } from '../../redux/actions/moneyActions';
+import { updateMoneyAction } from '../../redux/actions/moneyActions';
 import VendingInput from './VendingInput';
 
 const VendingInputContainer = (props) => {
@@ -35,7 +34,7 @@ const VendingInputContainer = (props) => {
 
   useEffect(() => {
     if (newMoney !== 0) {
-      actions.updateMoneyStash(newMoney);
+      actions.updateMoneyAction(newMoney);
     }
   },[newMoney]);
 
@@ -65,7 +64,7 @@ const VendingInputContainer = (props) => {
   const setPurchase = (profit) => {
     const newStash = moneyStash.stash + profit;
     const newObj = { ...moneyStash, stash: newStash, inPurchase: 0 };
-    setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
+    setNewMoney(newObj).then(actions.updateMoneyAction(newMoney));
   };
 
   const purchaseValidation = () => {
@@ -122,6 +121,7 @@ const VendingInputContainer = (props) => {
         }
         return false;
       })[0];
+
       console.log('Result ', result);
       if (result) {
         if (result.price <= inputMoney) {
@@ -174,13 +174,13 @@ VendingInputContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   vendingItems: state.items.data,
-  moneyStash: state.moneyStash,
+  moneyStash: state.moneyStash.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: {
     updateItemAction: bindActionCreators(updateItemAction, dispatch),
-    updateMoneyStash: bindActionCreators(updateMoneyStash, dispatch),
+    updateMoneyAction: bindActionCreators(updateMoneyAction, dispatch),
   },
 });
 
