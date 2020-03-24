@@ -8,14 +8,28 @@ import * as types from '../actions/actionTypes';
 export default function itemsReducer(state = [], action) {
   console.log('itemsReducer', state, action);
   switch (action.type) {
-    case types.UPDATE_ITEM_SUCCESS:
+    case types.UPDATE_ITEM_PENDING:
+      return {
+        ...state.items,
+        isFulfilled: false,
+        data: [],
+        pending: true,
+      };
+    case types.UPDATE_ITEM_FULFILLED:
       // item, items => updated items
       // return state.items.map((item) => (item.id === action.item.id ? action.item : item));
+      console.log('PAYLOAD REDUCER ',action.payload);
       return {
         ...state.items,
         isFulfilled: true,
         pending: false,
-        data: [],// indexof si slice
+        data: [...action.payload],// indexof si slice
+      };
+    case types.UPDATE_ITEM_REJECTED:
+      return {
+        ...state.items,
+        pending: false,
+        error: action.payload,
       };
     case types.LOAD_ITEMS_PENDING:
       return {

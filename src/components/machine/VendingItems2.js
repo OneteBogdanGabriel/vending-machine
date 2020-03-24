@@ -3,11 +3,11 @@ import React from 'react';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
-  <div className="column itemSlot" key={item ? item.id : position}>
+  <div className="column itemSlot" key={item && item.id ? item.id : position}>
     <p>{item ? item.name : 'Empty'}</p>
     <p>{ `Price: ${item ? item.price : '0'}` }</p>
     <p>{ `${item && item.amount > 0 ? item.amount : 'None'} in stock` }</p>
-    <p>{`NR ${position}`}</p>
+    <p>{`NR ${item ? item.itemNr : '0'}`}</p>
   </div>
 );
 

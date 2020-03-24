@@ -5,74 +5,74 @@
       "name": "Cookie",
       "price": 3,
       "amount": 10,
-      "itemNr": null
+      "itemNr": 11
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
       "amount": 8,
-      "itemNr": null
+      "itemNr": 12
     },
     {
       "id": 3,
       "name": "Snickers",
       "price": 7,
       "amount": 3,
-      "itemNr": null
+      "itemNr": 13
     },
     {
       "id": 4,
       "name": "Mars",
       "price": 7,
       "amount": 4,
-      "itemNr": null
+      "itemNr": 14
     },
     {
       "id": 5,
       "name": "Water",
       "price": 2,
       "amount": 6,
-      "itemNr": null
+      "itemNr": 21
     },
     {
       "id": 6,
       "name": "Cola",
       "price": 3,
       "amount": 5,
-      "itemNr": null
+      "itemNr": 22
     },
     {
       "id": 7,
       "name": "Fanta",
       "price": 3,
       "amount": 10,
-      "itemNr": null
+      "itemNr": 23
     },
     {
       "id": 8,
       "name": "Sprite",
       "price": 3,
       "amount": 8,
-      "itemNr": null
+      "itemNr": 24
     },
     {
       "id": 9,
       "name": "Ham & Cheese Sandwich",
       "price": 8,
       "amount": 2,
-      "itemNr": null
+      "itemNr": 31
     },
     {
       "id": 10,
       "name": "Angel Dust",
       "price": 120,
       "amount": 1,
-      "itemNr": null
+      "itemNr": 32
     }
   ],
   "moneyStash": {
     "stash": 100,
-    "inPurchase": 23
+    "inPurchase": 0
   }
 }

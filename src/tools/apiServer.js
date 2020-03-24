@@ -25,13 +25,27 @@ router.route('/machine/:id')
   .put((req, res) => {
     // console.log('xxx req.params', req.body, res.body, req.params);
     // check lowdb doc for commands
-    const response = db.update(
-      'items',
-      (items) => items.map((item) => ({
-        ...item,
-        ...(req.params.id === item.id ? { amount: req.body.amount, itemNr: req.body.itemNr } : {}),
-      })),
-    ).write();
+    // const response = db.update(
+    //   'items',
+    //   (items) => items.map((item) => ({
+    //     ...item,
+    //     ...(req.params.id === item.id ? { amount: req.body.amount, itemNr: req.body.itemNr } : {}),
+    //   })),
+    // ).write();
+    // console.log('API REQUEST BODY ',req.body);
+    const response = db.getState().items;
+    if (Object.keys(req.body).length > 0) {
+      response.forEach((element) => {
+        if (element.id === req.body.id) {
+          // update || return previous value
+          element.amount = req.body.amount || element.amount;
+          element.itemNr = req.body.itemNr || element.itemNr;
+        }
+      });
+
+      db.set('items', response).write();
+    }
+    console.log('API SERVER RESPONE ', response);
     return res.json(response);
   });
 
@@ -49,6 +63,7 @@ router.route('/machine')
       response.inPurchase = req.body.inPurchase || response.inPurchase;
       db.set('moneyStash', response).write();
     }
+    console.log('API MONEY RESPONSE ON SERVER ', response);
     return res.json(response);
   });
 
