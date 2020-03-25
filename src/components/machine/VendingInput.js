@@ -5,7 +5,7 @@ const VendingInput = (props) => {
   const {
     handleSaveMoney, handleSaveItem, onChange, rest, moneyStash,
   } = props;
-  console.log('VENDING INPUT MONEY ', moneyStash);
+
   return (
     <div className="UI">
       <form onSubmit={handleSaveMoney}>

@@ -6,7 +6,6 @@ import * as types from '../actions/actionTypes';
 // const LOAD_MONEY_REJECTED = `LOAD_MONEY_${ActionType.Rejected}`;
 
 export default function moneyReducer(state = {}, action) {
-  console.log('Action.payload ', action.payload);
   switch (action.type) {
     case types.UPDATE_MONEY_PENDING:
       return {
@@ -28,9 +27,6 @@ export default function moneyReducer(state = {}, action) {
         pending: false,
         error: action.payload,
       };
-      // return action.payload;
-    // case types.LOAD_MONEY_SUCCESS:
-    //   return action.payload.moneyStash;
     case types.LOAD_MONEY_PENDING:
       return {
         ...state.moneyStash,

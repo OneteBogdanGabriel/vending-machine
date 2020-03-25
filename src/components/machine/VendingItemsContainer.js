@@ -19,31 +19,9 @@ const VendingItemsContainer = (props) => {
   //   });
   // };
 
-  // useEffect(() => {
-  //   console.log('USEFFECT');
-  //   actions.updateItemAction((prevItem) => ([...prevItem, ...newItem]));
-  // },[newItem]);
-
-  // useEffect(() => {
-  //   console.log('USEFFECT');
-  //   actions.updateItemAction(newItem);
-  // },[newItem]);
-
   const handleItemNr = (slotItem, position) => {
-    // console.log('Slot ', slotItem);
-    // console.log('slotNr ', position);
-    // eslint-disable-next-line prefer-const
-    // let counter = 0;
     const newObj = { ...slotItem, itemNr: position };
-    console.log('newObj ', newObj);
-    // setNewItem(updateItemActionNr(newObj,counter));
     setNewItem(newObj);
-    // console.log('newItem ',newItem);
-    // if (newItem && newItem !== {}) {
-    //   actions.updateItemAction(newItem);
-    // }
-
-    // setNewItem(newObj).then(actions.updateItemAction(newItem));
   };
 
   useEffect(() => {
@@ -62,11 +40,8 @@ const VendingItemsContainer = (props) => {
             const newObj = { ...item, itemNr: position };
             console.log('newObj ', newObj);
             actions.updateItemAction(newObj);
-            // setNewItem(newObj);
-            // console.log('newItem ',newItem);
           }
           counter++;
-          // setCounter(counter+1);
         }
       }
     }

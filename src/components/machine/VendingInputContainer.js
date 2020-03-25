@@ -41,15 +41,8 @@ const VendingInputContainer = (props) => {
   const handleSaveMoney = (event) => {
     event.preventDefault();
     const newObj = { ...moneyStash, inPurchase: inputMoney };
-    console.log('moneySTash ', newObj);
-    // setNewMoney(newObj).then(actions.updateMoneyStash(newMoney));
     setNewMoney(newObj);
   };
-
-  // if (newMoney && newMoney !== 0) {
-  //   // console.log('NEWM MONEY ', newMoney);
-  //   actions.updateMoneyStash(newMoney);
-  // }
 
   const handleItemAmount = (item) => {
     const { amount } = item;
@@ -76,13 +69,10 @@ const VendingInputContainer = (props) => {
         listOfNr.push(parseInt(`${i}${j}`));
       }
     }
-    console.log('Money ', moneyStash);
-    console.log('Item selected ', itemSelected);
-    console.log('List ', listOfNr);
+
     if (moneyStash && moneyStash.inPurchase > 0) {
       listOfNr.forEach((nr) => {
         if (itemSelected === nr) {
-          console.log('Nr ', nr);
           isValid = true;
         }
       });

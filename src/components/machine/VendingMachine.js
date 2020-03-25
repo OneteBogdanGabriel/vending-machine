@@ -12,13 +12,11 @@ const VendingMachine = (props) => {
   const {
     items,
     moneyStash,
-    updateMoney,
     actions: {
       boundLoadItemsAction, boundLoadMoneyAction, boundUpdateItemAction, boundMoneyItemAction,
     },
   } = props;
 
-  console.log('ITEMS in VM ', props);
   useEffect(() => {
     // actions.loadItems().catch((error) => {
     //   alert(`Loading Items failed${error}`);
@@ -46,11 +44,11 @@ const VendingMachine = (props) => {
     vendingItems = items.data;
   }
 
-  // let vendingMoney;
-  // if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
-  //   vendingMoney = moneyStash.data;
-  // }
-  console.log('Money Stash????????? ', moneyStash);
+  let vendingMoney;
+  if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
+    vendingMoney = moneyStash.data;
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -60,7 +58,7 @@ const VendingMachine = (props) => {
         <div className="column columnInput">
           <VendingInput
             vendingItems={vendingItems}
-            moneyStash={moneyStash && moneyStash !== {} ? items && items.data : undefined}
+            moneyStash={vendingMoney}
             updateItemAction={boundUpdateItemAction}
             updateMoney={boundMoneyItemAction}
           />
@@ -73,7 +71,6 @@ const VendingMachine = (props) => {
 VendingMachine.propTypes = {
   items: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
-  updateMoney: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
