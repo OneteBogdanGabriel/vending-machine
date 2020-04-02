@@ -1,5 +1,7 @@
 import { handleResponse, handleError } from './apiUtils';
 
+const fetch = require('node-fetch');
+
 const baseUrl = 'http://localhost:3001/machine/';
 
 export function updateItem(item) {

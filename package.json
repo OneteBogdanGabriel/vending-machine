@@ -1,17 +1,24 @@
 {
   "name": "vending-machine",
-  "description": "Vending Machine Matrix",
+  "description": "Vending Machine Grid",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "start:api": "nodemon src/tools/apiServer.js localhost 3001",
+    "start:api": "nodemon -r esm src/server/apiServer.js localhost 3001",
     "db": "node src/tools/createMockDb",
     "build": "react-scripts build",
     "build2": "webpack-dev-server --hot --progress --colors --host 0.0.0.0 --port 3001",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ."
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "src/tools/db.json"
+    ],
+    "delay": "2500"
   },
   "proxy": "http://localhost:3001",
   "dependencies": {
@@ -21,8 +28,10 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

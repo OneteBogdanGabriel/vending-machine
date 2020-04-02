@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { updateItemAction } from '../../redux/actions/itemsActions';
 import VendingItems from './VendingItems2';
-// import store from '../../redux/reducers/storeReducer';
 
 const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
@@ -12,7 +11,7 @@ const VendingItemsContainer = (props) => {
   // console.log('VENDING ITEMS CONTAINER ', data);
   // const [slotNr, setSlotNr] = useState(0);
   const [newItem, setNewItem] = useState(null);
-
+  // getAll();
   // const handleDropSlot = (name) => {
   //   store.subscribe(() => {
   //     setSlotNr(name);
@@ -24,28 +23,26 @@ const VendingItemsContainer = (props) => {
     setNewItem(newObj);
   };
 
-  useEffect(() => {
-    let counter = 0;
-    // when promise from action is fulfilled
-    if (vendingItems.isFulfilled) {
-      for (let i = 1; i < 4; i++) {
-        for (let j = 1; j < 5; j++) {
-          // eslint-disable-next-line radix
-          const position = parseInt(`${i}${j}`);
-          console.log('HERE WE ARE', vendingItems.data);
-          if (counter < vendingItems.data.length) {
-            const item = vendingItems.data[counter];
-            // handleItemNr(item, position);
-            console.log('Item, ',item);
-            const newObj = { ...item, itemNr: position };
-            console.log('newObj ', newObj);
-            actions.updateItemAction(newObj);
-          }
-          counter++;
-        }
-      }
-    }
-  }, [vendingItems.data, vendingItems.isFulfilled]);
+  // useEffect(() => {
+  //   let counter = 0;
+  //   // when promise from action is fulfilled
+  //   for (let i = 1; i < 4; i++) {
+  //     for (let j = 1; j < 5; j++) {
+  //       // eslint-disable-next-line radix
+  //       const position = parseInt(`${i}${j}`);
+  //       console.log('HERE WE ARE', vendingItems.data);
+  //       if (counter < vendingItems.data.length) {
+  //         const item = vendingItems.data[counter];
+  //         // handleItemNr(item, position);
+  //         console.log('Item, ',item);
+  //         const newObj = { ...item, itemNr: position };
+  //         console.log('newObj ', newObj);
+  //         actions.updateItemAction(newObj);
+  //       }
+  //       counter++;
+  //     }
+  //   }
+  // }, []);
 
   const callbackItemNr = useCallback(handleItemNr, []);
 
