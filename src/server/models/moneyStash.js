@@ -12,7 +12,7 @@ const handleUpdateMoney = (data) => (money) => {
     stash: data.stash || money.stash,
     inPurchase: data.inPurchase || money.inPurchase,
   };
-  console.log('Handle Money ', newMoneyStash);
+
   return newMoneyStash;
 };
 

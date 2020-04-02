@@ -22,7 +22,10 @@ app.use(cors());// whitelists everything, so we dont have to do Acces-Control
 itemsResolver.updateItemsNr();
 
 router.route('/machine/:id')
-  .put((req, res) => itemsResolver.updateItemAmount(req,res));
+  .put((req, res) => {
+    const response = itemsResolver.updateItemAmount(req.body);
+    return res.json(response);
+  });
 
 router.route('/machine')
   .get((req,res) => {
@@ -30,20 +33,9 @@ router.route('/machine')
     return res.json(response);
   })
   .put((req, res) => {
-    const response = moneyResolver.updateMoneyStash(req,res);
+    const response = moneyResolver.updateMoneyStash(req.body);
     return res.json(response);
   });
-// .put((req, res) => {
-//   const response = db.getState().moneyStash;
-//   if (Object.keys(req.body).length > 0) {
-//     // update || return previous value
-//     response.stash = req.body.stash || response.stash;
-//     response.inPurchase = req.body.inPurchase || response.inPurchase;
-//     db.set('moneyStash', response).write();
-//   }
-//   console.log('API MONEY RESPONSE ON SERVER ', response);
-//   return res.json(response);
-// });
 
 app.use(router);
 
