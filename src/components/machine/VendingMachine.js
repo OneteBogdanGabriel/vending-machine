@@ -18,14 +18,6 @@ const VendingMachine = (props) => {
   } = props;
 
   useEffect(() => {
-    // actions.loadItems().catch((error) => {
-    //   alert(`Loading Items failed${error}`);
-    // });
-
-    // actions.loadMoney().catch((error) => {
-    //   alert(`Loading Money failed${error}`);
-    // });
-
     if (items && items.data && items.data.length === 0) {
       boundLoadItemsAction().catch((error) => {
         alert(`Loading Items failed${error}`);

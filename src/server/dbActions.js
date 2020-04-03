@@ -21,6 +21,7 @@ export function setField(fieldName, data) {
 }
 // update element of object
 export function updateField(fieldName, callback) {
+  // console.log('-------------------------------- DB ACTIONS ', fieldName, callback);
   return db.update(fieldName, callback).write();
 }
 

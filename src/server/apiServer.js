@@ -23,7 +23,9 @@ itemsResolver.updateItemsNr();
 
 router.route('/machine/:id')
   .put((req, res) => {
+    // console.log('------------------------------------------------------------API SERVER ', req.body);
     const response = itemsResolver.updateItemAmount(req.body);
+    console.log('------------------------------------------------------------API SERVER response', response);
     return res.json(response);
   });
 

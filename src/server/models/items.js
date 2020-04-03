@@ -5,6 +5,7 @@ export function getItems() {
 }
 
 const handleUpdateItem = (data) => (items) => items.map((item) => {
+  console.log('-------------------------------------------------------Handle items ', data);
   if (item.id === data.id) {
     // update || return previous value
     const newItem = {

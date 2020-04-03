@@ -8,21 +8,15 @@ import VendingItems from './VendingItems2';
 const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
   const { vendingItems, actions } = props;
-  // console.log('VENDING ITEMS CONTAINER ', data);
-  // const [slotNr, setSlotNr] = useState(0);
+
   const [newItem, setNewItem] = useState(null);
-  // getAll();
-  // const handleDropSlot = (name) => {
-  //   store.subscribe(() => {
-  //     setSlotNr(name);
-  //   });
-  // };
 
   const handleItemNr = (slotItem, position) => {
     const newObj = { ...slotItem, itemNr: position };
     setNewItem(newObj);
   };
 
+  // moved all this to backend resolver, to avoid rerendering infinitely. plus useEffect sucks with objects... :/
   // useEffect(() => {
   //   let counter = 0;
   //   // when promise from action is fulfilled

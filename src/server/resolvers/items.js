@@ -21,5 +21,7 @@ export function updateItemsNr() {
 
 // TODO : complete this with validations
 export function updateItemAmount(item) {
+  // console.log('-------------------------------------- Resolver ', item);
   updateItem(item);
+  return '';
 }

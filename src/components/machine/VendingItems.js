@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
@@ -58,11 +57,5 @@ const VendingItems = (props) => (
     </div>
   </div>
 );
-
-// VendingItems.propTypes = {
-//   items: PropTypes.array.isRequired,
-//   handleVmItem: PropTypes.func.isRequired,
-// };
-
 
 export default VendingItems;

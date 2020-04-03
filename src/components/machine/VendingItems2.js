@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
@@ -23,7 +22,6 @@ const generateTable = (props) => {
         const position = parseInt(`${i}${j}`);
         if (counter < items.length) {
           const item = items[counter];
-          // console.log('Counter ', counter);
           children.push(
             generateSlot(item, position),
           );

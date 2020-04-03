@@ -24,6 +24,6 @@ export function loadItemsAction() {
 }
 
 export function updateItemAction(item) {
-  console.log('updateItemAction item ', item);
+  // console.log('updateItemAction item ', item);
   return { type: types.UPDATE_ITEM, payload: updateItem(item) };
 }
