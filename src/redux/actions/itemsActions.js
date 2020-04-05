@@ -1,6 +1,13 @@
 import * as types from './actionTypes';
 import { updateItem, getItems } from '../../api/itemApi';
 
+export function loadItemsAction() {
+  return { type: types.LOAD_ITEMS, payload: getItems(), meta: { selector: 'items' } };
+}
+
+export function updateItemAction(item) {
+  return { type: types.UPDATE_ITEM, payload: updateItem(item) };
+}
 
 // This also works, but it relies on a fetch, and uses the loadItems Action Creator for payload
 // export function loadItems() {
@@ -19,11 +26,3 @@ import { updateItem, getItems } from '../../api/itemApi';
 // and it calls the functions in itemApi directly, instead of relying on the action to make a call to the api,
 // and the api to figure out the rest
 // selector is used because we receive all the db data and need to select the items from it, without moneyStash
-export function loadItemsAction() {
-  return { type: types.LOAD_ITEMS, payload: getItems(), meta: { selector: 'items' } };
-}
-
-export function updateItemAction(item) {
-  // console.log('updateItemAction item ', item);
-  return { type: types.UPDATE_ITEM, payload: updateItem(item) };
-}

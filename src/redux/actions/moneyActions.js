@@ -2,6 +2,14 @@ import * as types from './actionTypes';
 import { getMoney, updateMoney } from '../../api/moneyApi'; //* as moneyApi
 // import { beginApiCall, apiCallError } from './apiStatusActions';
 
+export function loadMoneyAction() {
+  return { type: types.LOAD_MONEY, payload: getMoney(), meta: { selector: 'moneyStash' } };
+}
+
+export function updateMoneyAction(moneyStash) {
+  return { type: types.UPDATE_MONEY, payload: updateMoney(moneyStash) };
+}
+
 // This way involves using a Thunk, inside of which you make the api call and
 // dispatch the action creator, which is defined separatly
 // export function loadMoneySuccess(moneyStash) {
@@ -20,19 +28,6 @@ import { getMoney, updateMoney } from '../../api/moneyApi'; //* as moneyApi
 //         throw error;
 //       });
 //   };
-// }
-
-export function loadMoneyAction() {
-  return { type: types.LOAD_MONEY, payload: getMoney(), meta: { selector: 'moneyStash' } };
-}
-
-export function updateMoneyAction(moneyStash) {
-  return { type: types.UPDATE_MONEY, payload: updateMoney(moneyStash) };
-}
-
-// export function updateMoneySuccess(moneyStash) {
-//   console.log('Money Action Update ', moneyStash);
-//   return { type: types.UPDATE_MONEY_SUCCESS, payload: moneyStash };
 // }
 
 // export function updateMoneyAction(money) {

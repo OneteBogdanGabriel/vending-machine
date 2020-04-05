@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 function actionTypeEndsInSuccess(type) {
-  return type.substring(type.length - 8) === '_SUCCESS';
+  return type.substring(type.length - 10) === '_FULFILLED';
 }
 
 export default function apiCallStatusReducer(

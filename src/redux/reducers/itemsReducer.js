@@ -18,7 +18,7 @@ export default function itemsReducer(state = [], action) {
     case types.UPDATE_ITEM_FULFILLED:
       // item, items => updated items
       // return state.items.map((item) => (item.id === action.item.id ? action.item : item));
-      console.log('PAYLOAD REDUCER ',action.payload);
+      console.log('PAYLOAD REDUCER ',action);
       return {
         ...state.items,
         isFulfilled: true,

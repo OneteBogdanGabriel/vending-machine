@@ -5,13 +5,12 @@ export function getItems() {
 }
 
 const handleUpdateItem = (data) => (items) => items.map((item) => {
-  console.log('-------------------------------------------------------Handle items ', data);
   if (item.id === data.id) {
     // update || return previous value
     const newItem = {
       ...item,
-      amount: data.amount || item.amount,
-      itemNr: data.itemNr || item.itemNr,
+      amount: data.amount,
+      itemNr: data.itemNr,
     };
     return newItem;
   }
@@ -19,5 +18,5 @@ const handleUpdateItem = (data) => (items) => items.map((item) => {
 });
 
 export function updateItem(item) {
-  updateField('items', handleUpdateItem(item));
+  return updateField('items', handleUpdateItem(item));
 }

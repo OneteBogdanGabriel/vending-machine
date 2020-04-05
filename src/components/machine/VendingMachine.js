@@ -24,7 +24,7 @@ const VendingMachine = (props) => {
       });
     }
 
-    if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
+    if (moneyStash && moneyStash.data && moneyStash.data === {}) {
       boundLoadMoneyAction().catch((error) => {
         alert(`Loading Money failed${error}`);
       });

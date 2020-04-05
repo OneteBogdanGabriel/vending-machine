@@ -18,7 +18,6 @@ const generateTable = (props) => {
     for (let i = 1; i < 4; i++) {
       const children = [];
       for (let j = 1; j < 5; j++) {
-        // eslint-disable-next-line radix
         const position = parseInt(`${i}${j}`);
         if (counter < items.length) {
           const item = items[counter];

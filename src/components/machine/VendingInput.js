@@ -3,16 +3,16 @@ import './VendingInput.css';
 
 const VendingInput = (props) => {
   const {
-    handleSaveMoney, handleSaveItem, onChange, rest, moneyStash,
+    handleSaveMoney, handleSaveItem, handleRest, handleCollectRest, onChange, rest, moneyStash,
   } = props;
 
   return (
     <div className="UI">
-      <form onSubmit={handleSaveMoney}>
+      <form onSubmit={handleSaveMoney} className="inputForm">
         <div className="inputFields">
           <label>
             Money:
-            {moneyStash ? moneyStash.inPurchase : 0}
+            {moneyStash && moneyStash.inPurchase ? moneyStash.inPurchase : 0}
           </label>
           <input
             name="money"
@@ -22,7 +22,7 @@ const VendingInput = (props) => {
           />
         </div>
       </form>
-      <form onSubmit={handleSaveItem}>
+      <form onSubmit={handleSaveItem} className="inputForm">
         <div className="inputFields">
           <label>Item</label>
           <input
@@ -34,8 +34,10 @@ const VendingInput = (props) => {
         </div>
       </form>
       <div className="inputFields">
+        <button type="button" onClick={handleRest} className="restBtn">Rest</button>
         <label>Rest</label>
-        <p>{rest && rest > 0 ? rest : ''}</p>
+        <input readOnly value={rest && rest > 0 ? rest : ''} onClick={handleCollectRest} className="rest" />
+        {/* <p onClick={handleCollectRest}>{rest && rest > 0 ? rest : ''}</p> */}
       </div>
     </div>
   );

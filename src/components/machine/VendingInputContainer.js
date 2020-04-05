@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -12,18 +13,21 @@ const VendingInputContainer = (props) => {
   } = props;
 
   const [inputMoney, setInputMoney] = useState(0);
-  const [rest, setRest] = useState(0);
+  const [rest, setRest] = useState(undefined);
   const [itemSelected, setItemSelected] = useState(undefined);
-  const [itemAmount, setItemAmount] = useState(0);
   const [newItem, setNewItem] = useState(undefined);
   const [newMoney, setNewMoney] = useState(0);
 
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    // eslint-disable-next-line radix
     const val = parseInt(value);
+
     if (name === 'money') {
+      if (moneyStash && moneyStash.inPurchase > 0) {
+        const sum = val + moneyStash.inPurchase;
+        return setInputMoney(sum);
+      }
       return setInputMoney(val);
     }
     if (name === 'item') {
@@ -33,8 +37,10 @@ const VendingInputContainer = (props) => {
   };
 
   useEffect(() => {
-    if (newMoney !== 0) {
-      actions.updateMoneyAction(newMoney);
+    actions.updateMoneyAction(newMoney);
+
+    if (newItem !== undefined) {
+      actions.updateItemAction(newItem);
     }
   },[newMoney]);
 
@@ -42,22 +48,18 @@ const VendingInputContainer = (props) => {
     event.preventDefault();
     const newObj = { ...moneyStash, inPurchase: inputMoney };
     setNewMoney(newObj);
-  };
-
-  const handleItemAmount = (item) => {
-    const { amount } = item;
-    setItemAmount(amount - 1);
+    document.getElementsByClassName('inputForm')[0].reset();
   };
 
   const setItem = (item) => {
-    const newObj = { ...item, amount: itemAmount };
-    setNewItem(newObj).then(actions.updateItemAction(newItem));
+    const newObj = { ...item, amount: item.amount - 1 };
+    setNewItem(newObj);
   };
 
   const setPurchase = (profit) => {
     const newStash = moneyStash.stash + profit;
-    const newObj = { ...moneyStash, stash: newStash, inPurchase: 0 };
-    setNewMoney(newObj).then(actions.updateMoneyAction(newMoney));
+    const newObj = { ...moneyStash, stash: newStash, inPurchase: parseInt(0) };
+    setNewMoney(newObj);
   };
 
   const purchaseValidation = () => {
@@ -65,7 +67,6 @@ const VendingInputContainer = (props) => {
     const listOfNr = [];
     for (let i = 1; i < 4; i++) {
       for (let j = 1; j < 6; j++) {
-        // eslint-disable-next-line radix
         listOfNr.push(parseInt(`${i}${j}`));
       }
     }
@@ -80,61 +81,78 @@ const VendingInputContainer = (props) => {
     return isValid;
   };
 
+  // FOR SINGLE PURCHASE ONLY
+  // const handlePurchaseItem = () => {
+  //   if (purchaseValidation() === false) {
+  //     alert('This nr does not exist! Please try again');
+  //     throw new Error('Invalid input!');
+  //     // throw 'Invalid input! ';
+  //   } else {
+  //     const result = vendingItems.filter((item) => {
+  //       if (item.itemNr === itemSelected) {
+  //         return true;
+  //       }
+  //       return false;
+  //     })[0];
+
+  //     if (result) {
+  //       if (result.price <= inputMoney) {
+  //         if (result.price < inputMoney) {
+  //           setRest(inputMoney - result.price);
+  //         }
+  //         setItem(result);
+  //         setPurchase(result.price);
+  //         document.getElementsByClassName('inputForm')[1].reset();
+  //         // return result.name;
+  //       }
+  //     }
+  //   }
+  //   return '';
+  // };
+
+  const result = vendingItems.filter((item) => {
+    if (item.itemNr === itemSelected) {
+      return true;
+    }
+    return false;
+  })[0];
+
   const handlePurchaseItem = () => {
     if (purchaseValidation() === false) {
       alert('This nr does not exist! Please try again');
       throw new Error('Invalid input!');
       // throw 'Invalid input! ';
     } else {
-      // setItemSelected(value);
-      // if (itemSelected) {
-      //   const result = vendingItems.filter((item) => item.itemNr === itemSelected);
-      //   if (result) {
-      //     if (result.price <= inputMoney) {
-      //       if (result.price < inputMoney) {
-      //         setRest(inputMoney - result.price);
-      //       }
-      //       handleItemAmount(result);
-      //       // handle updating item & money store
-      //       setItem(result);
-      //       setPurchase(result.price);
-
-      //       return result.name;
-      //     }
-      //   }
-      // }
-
-      const result = vendingItems.filter((item) => {
-        console.log('item result ', item);
-        if (item.itemNr === itemSelected) {
-          return true;
-        }
-        return false;
-      })[0];
-
-      console.log('Result ', result);
       if (result) {
-        if (result.price <= inputMoney) {
-          if (result.price < inputMoney) {
-            setRest(inputMoney - result.price);
-            console.log('Rest',rest);
-          }
-          // handleItemAmount(result);
-
-          // handle updating item & money store
+        if (result.price <= moneyStash.inPurchase) {
           setItem(result);
-          // setPurchase(result.price);
-
-          return result.name;
+          const moneyLeft = moneyStash.inPurchase-result.price;
+          const newObj = { ...moneyStash, inPurchase: moneyLeft };
+          setNewMoney(newObj);
+          document.getElementsByClassName('inputForm')[1].reset();
         }
       }
+      return '';
     }
-    return '';
+  };
+
+  const handleRest = () => {
+    setRest(moneyStash.inPurchase);
+    if (result) {
+      setPurchase(result.price);
+    } else {
+      // eslint-disable-next-line radix
+      const newObj = { ...moneyStash, inPurchase: parseInt(0) };
+      setNewMoney(newObj);
+    }
+  };
+
+  const handleCollectRest = () => {
+    setRest(0);
   };
 
   const handleSaveItem = (event) => {
     event.preventDefault();
-    console.log('PURCHASE VALUE ', event.target.value);
     handlePurchaseItem(event);
     // .then(() => {
     //   toast.success('Item purchased');
@@ -146,6 +164,8 @@ const VendingInputContainer = (props) => {
 
   return (
     <VendingInput
+      handleRest={handleRest}
+      handleCollectRest={handleCollectRest}
       handleSaveMoney={handleSaveMoney}
       handleSaveItem={handleSaveItem}
       onChange={handleChange}
@@ -156,7 +176,6 @@ const VendingInputContainer = (props) => {
 };
 
 VendingInputContainer.propTypes = {
-  // items: PropTypes.object.isRequired,
   vendingItems: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,

@@ -4,21 +4,21 @@
       "id": 1,
       "name": "Cookie",
       "price": 3,
-      "amount": 10,
+      "amount": -1,
       "itemNr": 11
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 8,
+      "amount": 0,
       "itemNr": 12
     },
     {
       "id": 3,
       "name": "Snickers",
       "price": 7,
-      "amount": 3,
+      "amount": 2,
       "itemNr": 13
     },
     {
@@ -32,7 +32,7 @@
       "id": 5,
       "name": "Water",
       "price": 2,
-      "amount": 6,
+      "amount": 5,
       "itemNr": 21
     },
     {
@@ -71,8 +71,5 @@
       "itemNr": 32
     }
   ],
-  "moneyStash": {
-    "stash": 103,
-    "inPurchase": 11
-  }
+  "moneyStash": {}
 }
