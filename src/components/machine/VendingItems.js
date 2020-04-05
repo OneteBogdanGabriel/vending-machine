@@ -1,61 +1,72 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
-  <td className="itemSlot" key={item ? item.id : position}>
+  <div className="column itemSlot" key={item && item.id ? item.id : position}>
     <p>{item ? item.name : 'Empty'}</p>
-    <p>{ `Price: ${item ? item.price : 0}` }</p>
-    <p>{ `${item ? item.amount : 'None'} in stock` }</p>
-    <p>{`NR ${position}`}</p>
-  </td>
+    <p>{ `Price: ${item ? item.price : '0'}` }</p>
+    <p>{ `${item && item.amount > 0 ? item.amount : 'None'} in stock` }</p>
+    <p>{`NR ${item ? item.itemNr : '0'}`}</p>
+  </div>
 );
 
-const generateTable = (props) => {
-  const { items, handleItemNr } = props;
-
-  const table = [];
+const generateTable = (items) => {
+  const gridView = [];
   let counter = 0;
   if (items && items.length > 0) {
-    while (counter < items.length) {
-      for (let i = 1; i < 4; i++) {
-        const children = [];
-        for (let j = 1; j < 5; j++) {
-          const position = `${i}${j}`;
+    for (let i = 1; i < 4; i++) {
+      const children = [];
+      for (let j = 1; j < 5; j++) {
+        const position = parseInt(`${i}${j}`);
+        if (counter < items.length) {
           const item = items[counter];
-          console.log('GENERATING POSITION ', position);
-          handleItemNr(item, position);
           children.push(
             generateSlot(item, position),
           );
+
+          counter++;
+        } else {
+          children.push(
+            generateSlot(null, position),
+          );
           counter++;
         }
-
-        table.push(<tr className="itemRow">{children}</tr>);
       }
+      gridView.push(<div className="row itemRow" key={i.toString()}>{children}</div>);
     }
   }
-  return table;
+  return gridView;
 };
 
-const displayPurchase = (item) => {
-  if (item && item.length > 0) {
-    return <p>{item.name}</p>;
+const displayPurchase = (listPurchasedItems) => {
+  if (listPurchasedItems && listPurchasedItems.length > 0) {
+    return (
+      <p>
+        {listPurchasedItems.map((item) => item.name).join(', ')}
+      </p>
+    );
   }
   return <p>Please come again</p>;
 };
 
-
-const VendingItems = (props) => (
-  <div className="displaySection">
-    <table className="itemsList">
-      <tbody>
-        {generateTable(props)}
-      </tbody>
-    </table>
-    <div className="dropSlot">
-      {displayPurchase(props)}
+const VendingItems = React.memo((props) => {
+  const { items, listPurchasedItems } = props;
+  return (
+    <div className="displaySection">
+      <div className="itemsList">
+        {generateTable(items)}
+      </div>
+      <div className="dropSlot">
+        {displayPurchase(listPurchasedItems)}
+      </div>
     </div>
-  </div>
-);
+  );
+});
+
+VendingItems.propTypes = {
+  listPurchasedItems: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
+};
 
 export default VendingItems;

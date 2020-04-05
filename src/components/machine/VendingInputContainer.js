@@ -9,7 +9,7 @@ import VendingInput from './VendingInput';
 
 const VendingInputContainer = (props) => {
   const {
-    vendingItems, moneyStash, actions,
+    vendingItems, moneyStash, handlePurchasedItem, actions,
   } = props;
 
   const [inputMoney, setInputMoney] = useState(0);
@@ -17,6 +17,7 @@ const VendingInputContainer = (props) => {
   const [itemSelected, setItemSelected] = useState(undefined);
   const [newItem, setNewItem] = useState(undefined);
   const [newMoney, setNewMoney] = useState(0);
+  const [listPurchased, setListPurchased] = useState([]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -41,8 +42,13 @@ const VendingInputContainer = (props) => {
 
     if (newItem !== undefined) {
       actions.updateItemAction(newItem);
+      setListPurchased(listPurchased.concat(newItem));
     }
   },[newMoney]);
+
+  useEffect(() => {
+    handlePurchasedItem(listPurchased);
+  },[listPurchased]);
 
   const handleSaveMoney = (event) => {
     event.preventDefault();
@@ -117,7 +123,8 @@ const VendingInputContainer = (props) => {
     return false;
   })[0];
 
-  const handlePurchaseItem = () => {
+  const handleSaveItem = (event) => {
+    event.preventDefault();
     if (purchaseValidation() === false) {
       alert('This nr does not exist! Please try again');
       throw new Error('Invalid input!');
@@ -136,6 +143,17 @@ const VendingInputContainer = (props) => {
     }
   };
 
+  // const handleSaveItem = (event) => {
+  //   event.preventDefault();
+  //   handlePurchaseItem(event);
+  //   // .then(() => {
+  //   //   toast.success('Item purchased');
+  //   // })
+  //   // .catch((error) => {
+  //   //   alert('Purchase Failed ! ', error);
+  //   // });
+  // };
+
   const handleRest = () => {
     setRest(moneyStash.inPurchase);
     if (result) {
@@ -149,17 +167,6 @@ const VendingInputContainer = (props) => {
 
   const handleCollectRest = () => {
     setRest(0);
-  };
-
-  const handleSaveItem = (event) => {
-    event.preventDefault();
-    handlePurchaseItem(event);
-    // .then(() => {
-    //   toast.success('Item purchased');
-    // })
-    // .catch((error) => {
-    //   alert('Purchase Failed ! ', error);
-    // });
   };
 
   return (
@@ -178,6 +185,7 @@ const VendingInputContainer = (props) => {
 VendingInputContainer.propTypes = {
   vendingItems: PropTypes.array.isRequired,
   moneyStash: PropTypes.object.isRequired,
+  handlePurchasedItem: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
 };
 

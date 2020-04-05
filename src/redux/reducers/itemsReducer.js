@@ -6,7 +6,6 @@ import * as types from '../actions/actionTypes';
 // const LOAD_ITEMS_REJECTED = `LOAD_ITEMS_${ActionType.Rejected}`;
 
 export default function itemsReducer(state = [], action) {
-  console.log('itemsReducer', state, action);
   switch (action.type) {
     case types.UPDATE_ITEM_PENDING:
       return {
@@ -16,9 +15,6 @@ export default function itemsReducer(state = [], action) {
         pending: true,
       };
     case types.UPDATE_ITEM_FULFILLED:
-      // item, items => updated items
-      // return state.items.map((item) => (item.id === action.item.id ? action.item : item));
-      console.log('PAYLOAD REDUCER ',action);
       return {
         ...state.items,
         isFulfilled: true,

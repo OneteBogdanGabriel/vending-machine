@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './VendingInput.css';
 
 const VendingInput = (props) => {
@@ -37,6 +38,16 @@ const VendingInput = (props) => {
       </div>
     </div>
   );
+};
+
+VendingInput.propTypes = {
+  rest: PropTypes.number.isRequired,
+  moneyStash: PropTypes.object.isRequired,
+  handleSaveMoney: PropTypes.func.isRequired,
+  handleSaveItem: PropTypes.func.isRequired,
+  handleRest: PropTypes.func.isRequired,
+  handleCollectRest: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default VendingInput;

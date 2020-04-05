@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { updateItemAction } from '../../redux/actions/itemsActions';
-import VendingItems from './VendingItems2';
+import VendingItems from './VendingItems';
 
 const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
-  const { vendingItems, actions } = props;
+  const { vendingItems, listPurchasedItems, actions } = props;
 
   // const [newItem, setNewItem] = useState(null);
 
@@ -42,8 +42,7 @@ const VendingItemsContainer = (props) => {
 
   return (
     <VendingItems
-      // handleDropSlot={handleDropSlot}
-      // handleItemNr={callbackItemNr}
+      listPurchasedItems={listPurchasedItems}
       items={vendingItems.data}
     />
   );
