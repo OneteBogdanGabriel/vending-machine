@@ -9,12 +9,7 @@ const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
   const { vendingItems, actions } = props;
 
-  const [newItem, setNewItem] = useState(null);
-
-  const handleItemNr = (slotItem, position) => {
-    const newObj = { ...slotItem, itemNr: position };
-    setNewItem(newObj);
-  };
+  // const [newItem, setNewItem] = useState(null);
 
   // moved all this to backend resolver, to avoid rerendering infinitely. plus useEffect sucks with objects... :/
   // useEffect(() => {
@@ -38,12 +33,17 @@ const VendingItemsContainer = (props) => {
   //   }
   // }, []);
 
-  const callbackItemNr = useCallback(handleItemNr, []);
+  // const handleItemNr = (slotItem, position) => {
+  //   const newObj = { ...slotItem, itemNr: position };
+  //   setNewItem(newObj);
+  // };
+
+  // const callbackItemNr = useCallback(handleItemNr, []);
 
   return (
     <VendingItems
       // handleDropSlot={handleDropSlot}
-      handleItemNr={callbackItemNr}
+      // handleItemNr={callbackItemNr}
       items={vendingItems.data}
     />
   );

@@ -3,6 +3,7 @@
   border: solid;
   width: 25%;
   vertical-align: baseline !important;
+  background-color: #ffffff
 }
 
 .dropSlot {
@@ -11,4 +12,5 @@
   align-content: center;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff
 }

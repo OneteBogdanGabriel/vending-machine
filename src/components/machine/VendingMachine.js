@@ -43,7 +43,7 @@ const VendingMachine = (props) => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row rowMachine">
         <div className="column columnItems">
           <VendingItems vendingItems={vendingItems} updateItemAction={boundUpdateItemAction} />
         </div>

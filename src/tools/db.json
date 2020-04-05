@@ -4,21 +4,21 @@
       "id": 1,
       "name": "Cookie",
       "price": 3,
-      "amount": -1,
+      "amount": 10,
       "itemNr": 11
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 0,
+      "amount": 8,
       "itemNr": 12
     },
     {
       "id": 3,
       "name": "Snickers",
       "price": 7,
-      "amount": 2,
+      "amount": 3,
       "itemNr": 13
     },
     {
@@ -32,7 +32,7 @@
       "id": 5,
       "name": "Water",
       "price": 2,
-      "amount": 5,
+      "amount": 6,
       "itemNr": 21
     },
     {
