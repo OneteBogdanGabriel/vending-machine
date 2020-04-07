@@ -14,7 +14,7 @@ const VendingInputContainer = (props) => {
   const [inputMoney, setInputMoney] = useState(0);
   const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(undefined);
-  const [newItem, setNewItem] = useState(undefined);
+  const [newItem, setNewItem] = useState(null);
   const [newMoney, setNewMoney] = useState(0);
   const [listPurchased, setListPurchased] = useState([]);
 
@@ -41,11 +41,18 @@ const VendingInputContainer = (props) => {
   useEffect(() => {
     actions.updateMoneyAction(newMoney);
 
-    if (newItem !== undefined) {
+    // if (newItem !== undefined) {
+    //   actions.updateItemAction(newItem);
+    //   setListPurchased(listPurchased.concat(newItem));
+    // }
+  },[newMoney]);
+
+  useEffect(() => {
+    if (newItem !== null) {
       actions.updateItemAction(newItem);
       setListPurchased(listPurchased.concat(newItem));
     }
-  },[newMoney]);
+  },[newItem]);
 
   useEffect(() => {
     handlePurchasedItem(listPurchased);
@@ -172,12 +179,13 @@ const VendingInputContainer = (props) => {
     } else {
       setRest(moneyStash.inPurchase);
     }
-    if (result) {
+    if (result && result !== null) {
       setPurchase(result.price);
     } else {
       const newObj = { ...moneyStash, inPurchase: 0 };
       setNewMoney(newObj);
     }
+    setNewItem(null);
     document.getElementsByClassName('inputForm')[0].reset();
     document.getElementsByClassName('inputForm')[1].reset();
   };
