@@ -39,10 +39,11 @@ const generateTable = (items) => {
   return gridView;
 };
 
-const displayPurchase = (listPurchasedItems) => {
+const displayPurchase = (listPurchasedItems, handleCollectItems) => {
   if (listPurchasedItems && listPurchasedItems.length > 0) {
     return (
-      <p>
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+      <p onClick={handleCollectItems} onKeyDown={handleCollectItems}>
         {listPurchasedItems.map((item) => item.name).join(', ')}
       </p>
     );
@@ -51,20 +52,21 @@ const displayPurchase = (listPurchasedItems) => {
 };
 
 const VendingItems = React.memo((props) => {
-  const { items, listPurchasedItems } = props;
+  const { items, listPurchasedItems, handleCollectItems } = props;
   return (
     <div className="displaySection">
       <div className="itemsList">
         {generateTable(items)}
       </div>
       <div className="dropSlot">
-        {displayPurchase(listPurchasedItems)}
+        {displayPurchase(listPurchasedItems, handleCollectItems)}
       </div>
     </div>
   );
 });
 
 VendingItems.propTypes = {
+  handleCollectItems: PropTypes.func.isRequired,
   listPurchasedItems: PropTypes.array.isRequired,
   items: PropTypes.array.isRequired,
 };

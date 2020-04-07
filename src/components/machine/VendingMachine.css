@@ -4,7 +4,7 @@
   align-items: center;
   align-content: center;
   flex-direction: column;
-  padding-top: 100px;
+  padding-top: 40px;
   /* background-image: url("Vending-Machine.jpg"); */
 }
 .rowMachine {
@@ -16,4 +16,5 @@
   padding-left: 70px;
   padding-right: 50px; */
 }
+
 

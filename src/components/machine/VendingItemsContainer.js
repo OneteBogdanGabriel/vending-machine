@@ -9,6 +9,9 @@ const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
   const { vendingItems, listPurchasedItems, actions } = props;
 
+  let slotItems = listPurchasedItems;
+  const [, updateState] = useState();
+
   // const [newItem, setNewItem] = useState(null);
 
   // moved all this to backend resolver, to avoid rerendering infinitely. plus useEffect sucks with objects... :/
@@ -40,9 +43,17 @@ const VendingItemsContainer = (props) => {
 
   // const callbackItemNr = useCallback(handleItemNr, []);
 
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  const handleCollectItems = () => {
+    slotItems = [];
+    forceUpdate();
+  };
+
   return (
     <VendingItems
-      listPurchasedItems={listPurchasedItems}
+      handleCollectItems={handleCollectItems}
+      listPurchasedItems={slotItems}
       items={vendingItems.data}
     />
   );
@@ -51,6 +62,7 @@ const VendingItemsContainer = (props) => {
 VendingItemsContainer.propTypes = {
   vendingItems: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
+  listPurchasedItems: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

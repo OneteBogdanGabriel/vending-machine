@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './VendingInput.css';
 
 const VendingInput = (props) => {
@@ -18,6 +19,7 @@ const VendingInput = (props) => {
           <input
             name="money"
             type="number"
+            min="0"
             onChange={onChange}
           />
         </div>
@@ -28,6 +30,7 @@ const VendingInput = (props) => {
           <input
             name="item"
             type="number"
+            min="0"
             onChange={onChange}
           />
         </div>

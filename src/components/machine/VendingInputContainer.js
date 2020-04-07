@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -13,7 +12,7 @@ const VendingInputContainer = (props) => {
   } = props;
 
   const [inputMoney, setInputMoney] = useState(0);
-  const [rest, setRest] = useState(undefined);
+  const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(undefined);
   const [newItem, setNewItem] = useState(undefined);
   const [newMoney, setNewMoney] = useState(0);
@@ -24,15 +23,17 @@ const VendingInputContainer = (props) => {
     const { name, value } = event.target;
     const val = parseInt(value);
 
-    if (name === 'money') {
-      if (moneyStash && moneyStash.inPurchase > 0) {
-        const sum = val + moneyStash.inPurchase;
-        return setInputMoney(sum);
+    if (val >= 0) {
+      if (name === 'money') {
+        if (moneyStash && moneyStash.inPurchase > 0) {
+          const sum = val + moneyStash.inPurchase;
+          return setInputMoney(sum);
+        }
+        return setInputMoney(val);
       }
-      return setInputMoney(val);
-    }
-    if (name === 'item') {
-      return setItemSelected(val);
+      if (name === 'item') {
+        return setItemSelected(val);
+      }
     }
     return '';
   };
@@ -58,13 +59,17 @@ const VendingInputContainer = (props) => {
   };
 
   const setItem = (item) => {
-    const newObj = { ...item, amount: item.amount - 1 };
-    setNewItem(newObj);
+    const newAmount = item.amount - 1;
+    if (newAmount >= 0) {
+      const newObj = { ...item, amount: newAmount };
+      return setNewItem(newObj);
+    }
+    return '';
   };
 
   const setPurchase = (profit) => {
     const newStash = moneyStash.stash + profit;
-    const newObj = { ...moneyStash, stash: newStash, inPurchase: parseInt(0) };
+    const newObj = { ...moneyStash, stash: newStash, inPurchase: 0 };
     setNewMoney(newObj);
   };
 
@@ -72,18 +77,28 @@ const VendingInputContainer = (props) => {
     let isValid = false;
     const listOfNr = [];
     for (let i = 1; i < 4; i++) {
-      for (let j = 1; j < 6; j++) {
+      for (let j = 1; j < 5; j++) {
         listOfNr.push(parseInt(`${i}${j}`));
       }
     }
 
-    if (moneyStash && moneyStash.inPurchase > 0) {
+    if (itemSelected === undefined) {
+      alert('No item selected !');
+    } else if (moneyStash && moneyStash.inPurchase > 0) {
+      let isNr = false;
       listOfNr.forEach((nr) => {
         if (itemSelected === nr) {
           isValid = true;
+          isNr = true;
         }
       });
+      if (!isNr) {
+        alert('Purchase failed ! Number is not valid !');
+      }
+    } else {
+      alert('Purchase failed ! No money left !');
     }
+
     return isValid;
   };
 
@@ -126,47 +141,50 @@ const VendingInputContainer = (props) => {
   const handleSaveItem = (event) => {
     event.preventDefault();
     if (purchaseValidation() === false) {
-      alert('This nr does not exist! Please try again');
-      throw new Error('Invalid input!');
-      // throw 'Invalid input! ';
-    } else {
-      if (result) {
-        if (result.price <= moneyStash.inPurchase) {
+      return '';
+      // alert('Purchase failed');
+      // throw new Error('Invalid input!');
+    }
+    if (result) {
+      if (result.price <= moneyStash.inPurchase) {
+        if (result.amount > 0) {
           setItem(result);
+
           const moneyLeft = moneyStash.inPurchase-result.price;
           const newObj = { ...moneyStash, inPurchase: moneyLeft };
+
           setNewMoney(newObj);
           document.getElementsByClassName('inputForm')[1].reset();
+        } else {
+          alert('Item out of stock');
         }
+      } else {
+        alert('Not enough money !');
       }
-      return '';
     }
+    return '';
   };
 
-  // const handleSaveItem = (event) => {
-  //   event.preventDefault();
-  //   handlePurchaseItem(event);
-  //   // .then(() => {
-  //   //   toast.success('Item purchased');
-  //   // })
-  //   // .catch((error) => {
-  //   //   alert('Purchase Failed ! ', error);
-  //   // });
-  // };
-
   const handleRest = () => {
-    setRest(moneyStash.inPurchase);
+    if (rest > 0) {
+      const totalRest = rest + moneyStash.inPurchase;
+      setRest(totalRest);
+    } else {
+      setRest(moneyStash.inPurchase);
+    }
     if (result) {
       setPurchase(result.price);
     } else {
-      // eslint-disable-next-line radix
-      const newObj = { ...moneyStash, inPurchase: parseInt(0) };
+      const newObj = { ...moneyStash, inPurchase: 0 };
       setNewMoney(newObj);
     }
+    document.getElementsByClassName('inputForm')[0].reset();
+    document.getElementsByClassName('inputForm')[1].reset();
   };
 
   const handleCollectRest = () => {
     setRest(0);
+    // document.getElementsByClassName('rest')[2].reset();
   };
 
   return (

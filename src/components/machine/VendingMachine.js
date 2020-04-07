@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import './VendingMachine.css';
+import { ToastContainer, toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
 import { loadItemsAction, updateItemAction } from '../../redux/actions/itemsActions';
 import { loadMoneyAction, updateMoneyAction } from '../../redux/actions/moneyActions';
+import './VendingMachine.css';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const VendingMachine = (props) => {
   const {
@@ -45,30 +49,45 @@ const VendingMachine = (props) => {
 
   const handlePurchasedItem = (list) => {
     setListPurchasedItems(list);
+    if (list.length > 0) {
+      toast.success('Item purchased',{
+        autoClose: 3000,
+        hideProgressBar: false,
+        newestOnTop: false,
+        closeOnClick: true,
+        rtl: false,
+        pauseOnVisibilityChange: false,
+        draggable: false,
+        pauseOnHover: false,
+      });
+    }
     return listPurchasedItems;
   };
 
   return (
-    <div className="container">
-      <div className="row rowMachine">
-        <div className="column columnItems">
-          <VendingItems
-            vendingItems={vendingItems}
-            updateItemAction={boundUpdateItemAction}
-            listPurchasedItems={listPurchasedItems}
-          />
-        </div>
-        <div className="column columnInput">
-          <VendingInput
-            vendingItems={vendingItems}
-            moneyStash={vendingMoney}
-            updateItemAction={boundUpdateItemAction}
-            updateMoney={boundMoneyItemAction}
-            handlePurchasedItem={handlePurchasedItem}
-          />
+    <>
+      <ToastContainer />
+      <div className="container">
+        <div className="row rowMachine">
+          <div className="column columnItems">
+            <VendingItems
+              vendingItems={vendingItems}
+              updateItemAction={boundUpdateItemAction}
+              listPurchasedItems={listPurchasedItems}
+            />
+          </div>
+          <div className="column columnInput">
+            <VendingInput
+              vendingItems={vendingItems}
+              moneyStash={vendingMoney}
+              updateItemAction={boundUpdateItemAction}
+              updateMoney={boundMoneyItemAction}
+              handlePurchasedItem={handlePurchasedItem}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
