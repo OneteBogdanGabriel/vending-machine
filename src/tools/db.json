@@ -71,5 +71,8 @@
       "itemNr": 32
     }
   ],
-  "moneyStash": {}
+  "moneyStash": {
+    "stash": 100,
+    "inPurchase": 8
+  }
 }
