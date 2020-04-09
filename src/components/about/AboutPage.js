@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { aboutText, aboutHeader, aboutVendingMachineBtn } from '../../server/public/other/texts';
+import {
+  aboutText, aboutHeader, aboutVendingMachineBtn, aboutDisclaimer,
+} from '../../server/public/other/texts';
 import './AboutPage.css';
 
 
@@ -12,6 +14,7 @@ const AboutPage = () => {
       <h2>{aboutHeader}</h2>
       {newText}
       <Link to="/machine" className="btn btn-primary">{aboutVendingMachineBtn}</Link>
+      <p className="disclaimer">{aboutDisclaimer}</p>
     </div>
   );
 };

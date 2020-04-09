@@ -12,3 +12,7 @@ h2 {
 .aboutText {
     line-height: 1em;
 }
+.disclaimer {
+    position: absolute;
+    bottom: 100px;
+}
