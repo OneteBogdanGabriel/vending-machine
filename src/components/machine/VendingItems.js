@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { vendingMachineSlot, vendingMachineInStock, vendingMachinePrice } from '../../server/public/other/texts';
+import {
+  vendingMachineSlot, vendingMachineInStock, vendingMachinePrice, vendingMachineNone, vendingMachineEmpty,
+} from '../../server/public/other/texts';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
   <div className="column itemSlot" key={item && item.id ? item.id : position}>
-    <p>{item ? item.name : 'Empty'}</p>
+    <p>{item ? item.name : vendingMachineEmpty}</p>
     <p>{ `${vendingMachinePrice}: ${item ? item.price : '0'}` }</p>
-    <p>{ `${item && item.amount > 0 ? item.amount : 'None'}${vendingMachineInStock}` }</p>
+    <p>{ `${item && item.amount > 0 ? item.amount : vendingMachineNone}${vendingMachineInStock}` }</p>
     <p>{`NR ${item ? item.itemNr : '0'}`}</p>
   </div>
 );

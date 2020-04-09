@@ -8,5 +8,7 @@ export const vendingMachineLabelItems = 'Item';
 export const vendingMachineLabelRest = 'Rest';
 
 export const vendingMachineSlot = 'Please come again';
+export const vendingMachineNone = 'None';
+export const vendingMachineEmpty = 'Empty';
 export const vendingMachineInStock = ' in stock';
 export const vendingMachinePrice = 'Price';
