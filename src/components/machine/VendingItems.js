@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { vendingMachineSlot, vendingMachineInStock, vendingMachinePrice } from '../../server/public/other/texts';
 import './VendingItems.css';
 
 const generateSlot = (item, position) => (
   <div className="column itemSlot" key={item && item.id ? item.id : position}>
     <p>{item ? item.name : 'Empty'}</p>
-    <p>{ `Price: ${item ? item.price : '0'}` }</p>
-    <p>{ `${item && item.amount > 0 ? item.amount : 'None'} in stock` }</p>
+    <p>{ `${vendingMachinePrice}: ${item ? item.price : '0'}` }</p>
+    <p>{ `${item && item.amount > 0 ? item.amount : 'None'}${vendingMachineInStock}` }</p>
     <p>{`NR ${item ? item.itemNr : '0'}`}</p>
   </div>
 );
@@ -48,7 +49,7 @@ const displayPurchase = (listPurchasedItems, handleCollectItems) => {
       </p>
     );
   }
-  return <p>Please come again</p>;
+  return <p>{vendingMachineSlot}</p>;
 };
 
 const VendingItems = React.memo((props) => {

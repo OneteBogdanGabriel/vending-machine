@@ -13,7 +13,10 @@
 .labels {
   background-color: #ffffff;
   font-weight: bold;
-  text-align: center
+  text-align: center;
+}
+.money {
+  white-space: pre-line;
 }
 
 input {

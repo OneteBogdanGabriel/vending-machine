@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { vendingMachineLabelMoney, vendingMachineLabelItems, vendingMachineLabelRest } from '../../server/public/other/texts';
 import './VendingInput.css';
 
 const VendingInput = (props) => {
   const {
     handleSaveMoney, handleSaveItem, handleRest, handleCollectRest, onChange, rest, moneyStash,
   } = props;
-
+  // Money:&nbsp;
   return (
     <div className="UI">
       <form onSubmit={handleSaveMoney} className="inputForm">
         <div className="inputFields">
-          <label className="labels">
-            Money:&nbsp;
+          <label className="labels money">
+            {vendingMachineLabelMoney}
+            &nbsp;
             {moneyStash && moneyStash.inPurchase ? moneyStash.inPurchase : 0}
           </label>
           <input
@@ -26,7 +27,7 @@ const VendingInput = (props) => {
       </form>
       <form onSubmit={handleSaveItem} className="inputForm">
         <div className="inputFields">
-          <label className="labels">Item</label>
+          <label className="labels">{vendingMachineLabelItems}</label>
           <input
             name="item"
             type="number"
@@ -36,7 +37,7 @@ const VendingInput = (props) => {
         </div>
       </form>
       <div className="inputFields">
-        <button type="button" onClick={handleRest} className="restBtn">Rest</button>
+        <button type="button" onClick={handleRest} className="restBtn">{vendingMachineLabelRest}</button>
         <input readOnly value={rest && rest > 0 ? rest : ''} onClick={handleCollectRest} className="rest" />
       </div>
     </div>

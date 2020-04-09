@@ -6,3 +6,9 @@
     flex-direction: column;
     padding-top: 100px;
 }
+h2 {
+    padding-bottom: 30px;
+}
+.aboutText {
+    line-height: 1em;
+}

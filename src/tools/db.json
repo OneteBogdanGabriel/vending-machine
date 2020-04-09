@@ -4,49 +4,49 @@
       "id": 1,
       "name": "Cookie",
       "price": 3,
-      "amount": 0,
+      "amount": 10,
       "itemNr": 11
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 0,
+      "amount": 8,
       "itemNr": 12
     },
     {
       "id": 3,
       "name": "Snickers",
       "price": 7,
-      "amount": 0,
+      "amount": 3,
       "itemNr": 13
     },
     {
       "id": 4,
       "name": "Mars",
       "price": 7,
-      "amount": 1,
+      "amount": 4,
       "itemNr": 14
     },
     {
       "id": 5,
       "name": "Water",
       "price": 2,
-      "amount": 5,
+      "amount": 6,
       "itemNr": 21
     },
     {
       "id": 6,
       "name": "Cola",
       "price": 3,
-      "amount": 1,
+      "amount": 5,
       "itemNr": 22
     },
     {
       "id": 7,
       "name": "Fanta",
       "price": 3,
-      "amount": 5,
+      "amount": 10,
       "itemNr": 23
     },
     {
@@ -71,8 +71,5 @@
       "itemNr": 32
     }
   ],
-  "moneyStash": {
-    "stash": 60,
-    "inPurchase": 0
-  }
+  "moneyStash": {}
 }
