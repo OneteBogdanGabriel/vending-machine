@@ -35,8 +35,8 @@ itemsResolver.updateItemsNr();
 //   });
 
 router.route('/machine/:id')
-  .get((req, res) => {
-    const response = itemsResolver.updateItemAmount(req.body).items; // .items because we may receive the entire db
+  .put((res, req) => {
+    const response = itemsResolver.updateItemAmount(req.body).items;// .items because we may receive the entire db
     return res.json(response);
   });
 

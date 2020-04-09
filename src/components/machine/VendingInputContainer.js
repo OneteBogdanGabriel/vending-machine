@@ -137,7 +137,6 @@ const VendingInputContainer = (props) => {
   //   }
   //   return '';
   // };
-
   const result = vendingItems.filter((item) => {
     if (item.itemNr === itemSelected) {
       return true;

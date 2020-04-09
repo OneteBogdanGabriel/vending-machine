@@ -12,3 +12,5 @@ export const vendingMachineNone = 'None';
 export const vendingMachineEmpty = 'Empty';
 export const vendingMachineInStock = ' in stock';
 export const vendingMachinePrice = 'Price';
+
+export const vendingMachineToast = 'Item Purchased';

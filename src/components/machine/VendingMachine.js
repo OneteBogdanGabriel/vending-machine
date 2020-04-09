@@ -7,6 +7,7 @@ import VendingItems from './VendingItemsContainer';
 import VendingInput from './VendingInputContainer';
 import { loadItemsAction, updateItemAction } from '../../redux/actions/itemsActions';
 import { loadMoneyAction, updateMoneyAction } from '../../redux/actions/moneyActions';
+import { vendingMachineToast } from '../../server/public/other/texts';
 import './VendingMachine.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -60,7 +61,7 @@ const VendingMachine = (props) => {
   const handlePurchasedItem = (list) => {
     setListPurchasedItems(list);
     if (list.length > 0) {
-      toast.success('Item purchased',{
+      toast.success(vendingMachineToast,{
         autoClose: 3000,
         hideProgressBar: false,
         newestOnTop: false,
