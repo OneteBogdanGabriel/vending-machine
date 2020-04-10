@@ -9,8 +9,8 @@ const handleUpdateMoney = (data) => (money) => {
   // update || return previous value
   const newMoneyStash = {
     ...money,
-    stash: data.stash || money.stash,
-    inPurchase: data.inPurchase || money.inPurchase,
+    stash: (data.stash !== null && data.stash !== undefined) ? data.stash : money.stash,
+    inPurchase: (data.inPurchase !== null && data.inPurchase !== undefined) ? data.inPurchase : money.inPurchase,
   };
   return newMoneyStash;
 };

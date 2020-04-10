@@ -9,8 +9,8 @@ const handleUpdateItem = (data) => (items) => items.map((item) => {
     // update || return previous value
     const newItem = {
       ...item,
-      amount: data.amount || items.amount,
-      itemNr: data.itemNr || items.itemNr,
+      amount: data.amount,
+      itemNr: data.itemNr,
     };
     return newItem;
   }
