@@ -3,7 +3,7 @@ import { handleResponse, handleError } from './apiUtils';
 const baseUrl = 'http://localhost:3001/machine/';
 
 export function updateMoney(moneyStash) {
-  console.log('HTTPPUT', moneyStash, JSON.stringify(moneyStash));
+  // console.log('HTTPPUT', moneyStash, JSON.stringify(moneyStash));
   return (
     // || fetch(baseUrl + (money.stash || ''), {
     fetch(baseUrl, {

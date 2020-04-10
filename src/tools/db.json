@@ -11,7 +11,7 @@
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 3,
+      "amount": 5,
       "itemNr": 12
     },
     {
@@ -72,7 +72,7 @@
     }
   ],
   "moneyStash": {
-    "stash": 149,
-    "inPurchase": 0
+    "stash": 145,
+    "inPurchase": 113
   }
 }

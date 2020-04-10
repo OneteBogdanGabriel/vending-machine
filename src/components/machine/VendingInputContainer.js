@@ -36,9 +36,9 @@ const VendingInputContainer = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    const val = parseInt(value);
 
-    if (val >= 0) {
+    if (value) {
+      const val = parseInt(value);
       if (name === 'money') {
         if (moneyStash && moneyStash.inPurchase > 0) {
           const sum = val + moneyStash.inPurchase;
@@ -50,13 +50,20 @@ const VendingInputContainer = (props) => {
         return setItemSelected(val);
       }
     }
+
     return '';
   };
 
   const handleSaveMoney = (event) => {
     event.preventDefault();
-    const newObj = { ...moneyStash, inPurchase: inputMoney };
-    setNewMoney(newObj);
+    if (inputMoney) {
+      const newObj = { ...moneyStash, inPurchase: inputMoney };
+      setNewMoney(newObj);
+      setInputMoney(0);
+    } else {
+      alert('No money inserted !');
+    }
+
     document.getElementsByClassName('inputForm')[0].reset();
   };
 
@@ -89,9 +96,11 @@ const VendingInputContainer = (props) => {
         }
       });
       if (!isNr) {
+        document.getElementsByClassName('inputForm')[1].reset();
         alert('Purchase failed ! Number is not valid !');
       }
     } else {
+      document.getElementsByClassName('inputForm')[1].reset();
       alert('Purchase failed ! No money left !');
     }
 
@@ -102,6 +111,7 @@ const VendingInputContainer = (props) => {
   const handleSaveItem = (event) => {
     event.preventDefault();
     if (purchaseValidation() === false) {
+      setItemSelected(null);
       return '';
       // alert('Purchase failed');
       // throw new Error('Invalid input!');
@@ -122,6 +132,8 @@ const VendingInputContainer = (props) => {
 
           setNewMoney(newObj);
           setItemSelected(null);
+          setInputMoney(0);
+          document.getElementsByClassName('inputForm')[0].reset();
           document.getElementsByClassName('inputForm')[1].reset();
         } else {
           alert('Item out of stock');
@@ -144,6 +156,7 @@ const VendingInputContainer = (props) => {
     const newObj = { ...moneyStash, inPurchase: 0 };
     setNewMoney(newObj);
     setNewItem(null);
+    setInputMoney(0);
 
     document.getElementsByClassName('inputForm')[0].reset();
     document.getElementsByClassName('inputForm')[1].reset();
@@ -151,7 +164,6 @@ const VendingInputContainer = (props) => {
 
   const handleCollectRest = () => {
     setRest(0);
-    // document.getElementsByClassName('rest')[2].reset();
   };
 
   return (
