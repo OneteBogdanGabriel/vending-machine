@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -7,7 +7,7 @@ import VendingItems from './VendingItems';
 
 const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
-  const { vendingItems, listPurchasedItems, actions } = props;
+  const { vendingItems, listPurchasedItems } = props;
 
   let slotItems = listPurchasedItems;
   const [, updateState] = useState();
@@ -60,8 +60,7 @@ const VendingItemsContainer = (props) => {
 };
 
 VendingItemsContainer.propTypes = {
-  vendingItems: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  vendingItems: PropTypes.object.isRequired,
   listPurchasedItems: PropTypes.array.isRequired,
 };
 

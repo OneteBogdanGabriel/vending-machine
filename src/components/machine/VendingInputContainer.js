@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux';
 import { updateItemAction } from '../../redux/actions/itemsActions';
 import { updateMoneyAction } from '../../redux/actions/moneyActions';
 import VendingInput from './VendingInput';
+import {
+  alertNoMoneyInserted, alertNoItemSelected, alertNumberInvalid, alertNoMoneyLeft, alertOutOfStock, alertNotEnoughMoney,
+} from '../../server/public/other/texts';
 
 const VendingInputContainer = (props) => {
   const {
@@ -61,7 +64,7 @@ const VendingInputContainer = (props) => {
       setNewMoney(newObj);
       setInputMoney(0);
     } else {
-      alert('No money inserted !');
+      alert(alertNoMoneyInserted);
     }
 
     document.getElementsByClassName('inputForm')[0].reset();
@@ -86,7 +89,7 @@ const VendingInputContainer = (props) => {
     }
 
     if (itemSelected === null) {
-      alert('No item selected !');
+      alert(alertNoItemSelected);
     } else if (moneyStash && moneyStash.inPurchase > 0) {
       let isNr = false;
       listOfNr.forEach((nr) => {
@@ -97,11 +100,11 @@ const VendingInputContainer = (props) => {
       });
       if (!isNr) {
         document.getElementsByClassName('inputForm')[1].reset();
-        alert('Purchase failed ! Number is not valid !');
+        alert(alertNumberInvalid);
       }
     } else {
       document.getElementsByClassName('inputForm')[1].reset();
-      alert('Purchase failed ! No money left !');
+      alert(alertNoMoneyLeft);
     }
 
     return isValid;
@@ -136,10 +139,10 @@ const VendingInputContainer = (props) => {
           document.getElementsByClassName('inputForm')[0].reset();
           document.getElementsByClassName('inputForm')[1].reset();
         } else {
-          alert('Item out of stock');
+          alert(alertOutOfStock);
         }
       } else {
-        alert('Not enough money !');
+        alert(alertNotEnoughMoney);
       }
     }
     return '';
@@ -189,6 +192,7 @@ VendingInputContainer.propTypes = {
 const mapStateToProps = (state) => ({
   vendingItems: state.items.data,
   moneyStash: state.moneyStash.data,
+  actions: PropTypes.object.isRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({

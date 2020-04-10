@@ -103,7 +103,7 @@ const VendingMachine = (props) => {
 };
 
 VendingMachine.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.object.isRequired,
   moneyStash: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };

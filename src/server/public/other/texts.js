@@ -14,3 +14,10 @@ export const vendingMachineInStock = ' in stock';
 export const vendingMachinePrice = 'Price';
 
 export const vendingMachineToast = 'Item Purchased';
+
+export const alertNoMoneyInserted = 'No money inserted !';
+export const alertNoItemSelected = 'No item selected !';
+export const alertNumberInvalid = 'Purchase failed ! Number is not valid !';
+export const alertNoMoneyLeft = 'Purchase failed ! No money left !';
+export const alertOutOfStock = 'Item out of stock !';
+export const alertNotEnoughMoney = 'Not enough money !';
