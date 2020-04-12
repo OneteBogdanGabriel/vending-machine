@@ -11,7 +11,6 @@ export default function moneyReducer(state = {}, action) {
       return {
         ...state.moneyStash,
         isFulfilled: false,
-        data: {},
         pending: true,
       };
     case types.UPDATE_MONEY_FULFILLED:
@@ -31,7 +30,6 @@ export default function moneyReducer(state = {}, action) {
       return {
         ...state.moneyStash,
         isFulfilled: false,
-        data: {},
         pending: true,
       };
 

@@ -47,7 +47,7 @@ const VendingItemsContainer = (props) => {
 
   const handleCollectItems = () => {
     slotItems = [];
-    forceUpdate();
+    // forceUpdate();
   };
 
   return (

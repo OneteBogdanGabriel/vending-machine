@@ -20,6 +20,7 @@ const VendingInputContainer = (props) => {
   const [newItem, setNewItem] = useState(null);
   const [newMoney, setNewMoney] = useState(0);
   const [listPurchased, setListPurchased] = useState([]);
+  // const [listPurchasedItem, setListPurchasedItem] = useState(null);
 
   useEffect(() => {
     actions.updateMoneyAction(newMoney);
@@ -28,7 +29,25 @@ const VendingInputContainer = (props) => {
   useEffect(() => {
     if (newItem !== null) {
       actions.updateItemAction(newItem);
-      setListPurchased(listPurchased.concat(newItem));
+      const listLength = listPurchased.length;
+      let purchase;
+      if (listLength === 0) {
+        purchase = { item: newItem, amount: 1 };
+        setListPurchased(listPurchased.concat(purchase));// push doesnt work here
+      } else {
+        for (let i = 0; i<listLength; i++) {
+          if (listPurchased[i].item.id === newItem.id) {
+            const newAmount = listPurchased[i].amount + 1;
+
+            purchase = { item: newItem, amount: newAmount };
+            const newList = [...listPurchased.slice(0,i),purchase,...listPurchased.slice(i+1)];
+            setListPurchased(newList);
+          } else {
+            purchase = { item: newItem, amount: 1 };
+            setListPurchased(listPurchased.concat(purchase));
+          }
+        }
+      }
     }
   },[newItem]);
 

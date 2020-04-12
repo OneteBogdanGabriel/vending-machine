@@ -13,6 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
 
+const randomizeBackground = () => { // to avoid redefining it, placed outside component
+  const totalCount = 9;
+  const num = Math.ceil(Math.random() * totalCount);
+  // it knows its in src/server/public
+  document.body.style.background = `#f3f3f3 url('/images/background${num}.jpg') no-repeat center center`;
+  document.body.style.backgroundSize = '75% 100%';
+};
+
 const VendingMachine = (props) => {
   const {
     items,
@@ -23,16 +31,6 @@ const VendingMachine = (props) => {
   } = props;
 
   const [listPurchasedItems, setListPurchasedItems] = useState([]);
-
-  const randomizeBackground = () => {
-    const totalCount = 9;
-    const num = Math.ceil(Math.random() * totalCount);
-    // it knows its in src/server/public
-    document.body.style.background = `#f3f3f3 url('/images/background${num}.jpg') no-repeat center center`;
-    document.body.style.backgroundSize = '75% 100%';
-  };
-
-  randomizeBackground();
 
   useEffect(() => {
     if (items && items.data && items.data.length === 0) {
@@ -46,6 +44,8 @@ const VendingMachine = (props) => {
         alert(`Loading Money failed${error}`);
       });
     }
+
+    randomizeBackground(); // so that background doesn't change
   }, []);
 
   let vendingItems;

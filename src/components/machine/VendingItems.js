@@ -15,6 +15,7 @@ const generateSlot = (item, position) => (
 );
 
 const generateTable = (items) => {
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~SLOT ITEMS ', items);
   const gridView = [];
   let counter = 0;
   if (items && items.length > 0) {
@@ -47,14 +48,14 @@ const displayPurchase = (listPurchasedItems, handleCollectItems) => {
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <p onClick={handleCollectItems} onKeyDown={handleCollectItems}>
-        {listPurchasedItems.map((item) => item.name).join(', ')}
+        {listPurchasedItems.map((purchase) => `${purchase.item.name} x${purchase.amount}`).join(', ')}
       </p>
     );
   }
   return <p>{vendingMachineSlot}</p>;
 };
 
-const VendingItems = React.memo((props) => {
+const VendingItems = React.memo((props) => { // equivalent to shootComponentUpdate, sau React Pure Component
   const { items, listPurchasedItems, handleCollectItems } = props;
   return (
     <div className="displaySection">

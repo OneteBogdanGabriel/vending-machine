@@ -11,7 +11,6 @@ export default function itemsReducer(state = [], action) {
       return {
         ...state.items,
         isFulfilled: false,
-        data: [],
         pending: true,
       };
     case types.UPDATE_ITEM_FULFILLED:
@@ -19,7 +18,7 @@ export default function itemsReducer(state = [], action) {
         ...state.items,
         isFulfilled: true,
         pending: false,
-        data: [...action.payload],// indexof si slice
+        data: [...action.payload],
       };
     case types.UPDATE_ITEM_REJECTED:
       return {
@@ -31,7 +30,6 @@ export default function itemsReducer(state = [], action) {
       return {
         ...state.items,
         isFulfilled: false,
-        data: [],
         pending: true,
       };
 
