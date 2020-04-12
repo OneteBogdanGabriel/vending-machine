@@ -33,30 +33,19 @@ const VendingMachine = (props) => {
   const [listPurchasedItems, setListPurchasedItems] = useState([]);
 
   useEffect(() => {
-    if (items && items.data && items.data.length === 0) {
-      boundLoadItemsAction().catch((error) => {
-        alert(`Loading Items failed${error}`);
-      });
-    }
+    boundLoadItemsAction().catch((error) => {
+      alert(`Loading Items failed${error}`);
+    });
 
-    if (moneyStash && moneyStash.data && moneyStash.data === {}) {
-      boundLoadMoneyAction().catch((error) => {
-        alert(`Loading Money failed${error}`);
-      });
-    }
+    boundLoadMoneyAction().catch((error) => {
+      alert(`Loading Money failed${error}`);
+    });
 
     randomizeBackground(); // so that background doesn't change
   }, []);
 
-  let vendingItems;
-  if (items && items.data && items.data.length > 0) {
-    vendingItems = items.data;
-  }
-
-  let vendingMoney;
-  if (moneyStash && moneyStash.data && moneyStash.data !== {}) {
-    vendingMoney = moneyStash.data;
-  }
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~monay.data ',moneyStash.data);
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~items.data ',items.data);
 
   const handlePurchasedItem = (list) => {
     setListPurchasedItems(list);
@@ -82,15 +71,15 @@ const VendingMachine = (props) => {
         <div className="row rowMachine">
           <div className="column columnItems">
             <VendingItems
-              vendingItems={vendingItems}
+              vendingItems={items.data}
               updateItemAction={boundUpdateItemAction}
               listPurchasedItems={listPurchasedItems}
             />
           </div>
           <div className="column columnInput">
             <VendingInput
-              vendingItems={vendingItems}
-              moneyStash={vendingMoney}
+              vendingItems={items.data}
+              moneyStash={moneyStash.data}
               updateItemAction={boundUpdateItemAction}
               updateMoney={boundMoneyItemAction}
               handlePurchasedItem={handlePurchasedItem}
