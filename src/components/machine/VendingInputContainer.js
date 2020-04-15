@@ -18,12 +18,12 @@ const VendingInputContainer = (props) => {
   const [rest, setRest] = useState(0);
   const [itemSelected, setItemSelected] = useState(null);
   const [newItem, setNewItem] = useState(null);
-  const [newMoney, setNewMoney] = useState(0);
+  const [newMoney, setNewMoney] = useState({});
   const [listPurchased, setListPurchased] = useState([]);
   // const [listPurchasedItem, setListPurchasedItem] = useState(null);
 
   useEffect(() => {
-    actions.updateMoneyAction(newMoney);
+    if (Object.keys(newMoney).length !== 0) {actions.updateMoneyAction(newMoney);} // isEmpty not working
   },[newMoney]);
 
   useEffect(() => {

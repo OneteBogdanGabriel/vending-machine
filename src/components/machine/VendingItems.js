@@ -15,7 +15,6 @@ const generateSlot = (item, position) => (
 );
 
 const generateTable = (items) => {
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~SLOT ITEMS ', items);
   const gridView = [];
   let counter = 0;
   if (items && items.length > 0) {

@@ -4,14 +4,14 @@
       "id": 1,
       "name": "Cookie",
       "price": 3,
-      "amount": 2,
+      "amount": 6,
       "itemNr": 11
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 7,
+      "amount": 5,
       "itemNr": 12
     },
     {
@@ -32,7 +32,7 @@
       "id": 5,
       "name": "Water",
       "price": 2,
-      "amount": 5,
+      "amount": 4,
       "itemNr": 21
     },
     {
@@ -46,14 +46,14 @@
       "id": 7,
       "name": "Fanta",
       "price": 3,
-      "amount": 9,
+      "amount": 10,
       "itemNr": 23
     },
     {
       "id": 8,
       "name": "Sprite",
       "price": 3,
-      "amount": 7,
+      "amount": 6,
       "itemNr": 24
     },
     {
@@ -73,6 +73,6 @@
   ],
   "moneyStash": {
     "stash": 186,
-    "inPurchase": 71
+    "inPurchase": 11
   }
 }

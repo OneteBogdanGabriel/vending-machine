@@ -2,7 +2,7 @@
 .itemSlot {
   border: solid;
   width: 25%;
-  vertical-align: baseline !important;
+  vertical-align: baseline;
   background-color: #ffffff
 }
 
@@ -12,5 +12,10 @@
   align-content: center;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff
+  background-color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }
+

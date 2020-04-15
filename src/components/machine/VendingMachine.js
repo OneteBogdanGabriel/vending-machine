@@ -44,9 +44,6 @@ const VendingMachine = (props) => {
     randomizeBackground(); // so that background doesn't change
   }, []);
 
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~monay.data ',moneyStash.data);
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~items.data ',items.data);
-
   const handlePurchasedItem = (list) => {
     setListPurchasedItems(list);
     if (list.length > 0) {
