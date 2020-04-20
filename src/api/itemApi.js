@@ -24,7 +24,6 @@ export function updateItem(item) {
 }
 
 export function getItems() {
-  console.log('FETCH', fetch(baseUrl));
   return fetch(baseUrl, {
     method: 'GET', // POST for create, PUT to update.
     headers: {

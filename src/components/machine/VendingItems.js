@@ -12,6 +12,30 @@ const generateSlot = (item, position) => (
     <p>{ `${item && item.amount > 0 ? item.amount : vendingMachineNone}${vendingMachineInStock}` }</p>
     <p>{`NR ${item ? item.itemNr : '0'}`}</p>
   </div>
+  // <div className="column itemSlot" key={item && item.id ? item.id : position}>
+  //   <div className="row rowName">
+  //     <div className="column itemName">
+  //       <p>{item ? item.name : vendingMachineEmpty}</p>
+  //     </div>
+  //   </div>
+  //   <div className="row rowName">
+  //     <div className="column itemImage">
+  //       <p />
+  //     </div>
+  //     <div className="column itemAmount">
+  //       <p>{ `${item && item.amount > 0 ? item.amount : vendingMachineNone}${vendingMachineInStock}` }</p>
+  //       {/* <p>{ `${item && item.amount > 0 ? document.body.style.backgroundColor = 'green' : document.body.style.backgroundColor = 'red'}` }</p> */}
+  //     </div>
+  //   </div>
+  //   <div className="row rowName">
+  //     <div className="column itemNr">
+  //       <p>{`NR ${item ? item.itemNr : '0'}`}</p>
+  //     </div>
+  //     <div className="column itemPrice">
+  //       <p>{ `${vendingMachinePrice}: ${item ? item.price : '0'}` }</p>
+  //     </div>
+  //   </div>
+  // </div>
 );
 
 const generateTable = (items) => {

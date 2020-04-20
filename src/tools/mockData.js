@@ -5,6 +5,7 @@ const items = [
     price: 3,
     amount: 10,
     itemNr: null,
+    image: './server/items/cookie.jpg',
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ const items = [
     price: 5,
     amount: 8,
     itemNr: null,
+    image: '',
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ const items = [
     price: 7,
     amount: 3,
     itemNr: null,
+    image: '',
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ const items = [
     price: 7,
     amount: 4,
     itemNr: null,
+    image: '',
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ const items = [
     price: 2,
     amount: 6,
     itemNr: null,
+    image: '',
   },
   {
     id: 6,
@@ -40,6 +45,7 @@ const items = [
     price: 3,
     amount: 5,
     itemNr: null,
+    image: '',
   },
   {
     id: 7,
@@ -47,6 +53,7 @@ const items = [
     price: 3,
     amount: 10,
     itemNr: null,
+    image: '',
   },
   {
     id: 8,
@@ -54,6 +61,7 @@ const items = [
     price: 3,
     amount: 8,
     itemNr: null,
+    image: '',
   },
   {
     id: 9,
@@ -61,6 +69,7 @@ const items = [
     price: 8,
     amount: 2,
     itemNr: null,
+    image: '',
   },
   {
     id: 10,
@@ -68,6 +77,7 @@ const items = [
     price: 120,
     amount: 1,
     itemNr: null,
+    image: '',
   },
 ];
 

@@ -29,7 +29,6 @@ export function updateMoney(moneyStash) {
 // }
 
 export function getMoney() {
-  console.log('FETCH', fetch(baseUrl));
   return fetch(baseUrl, {
     method: 'GET', // POST for create, PUT to update.
     headers: {
