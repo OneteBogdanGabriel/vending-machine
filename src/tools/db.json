@@ -4,75 +4,85 @@
       "id": 1,
       "name": "Cookie",
       "price": 3,
-      "amount": 0,
-      "itemNr": 11
+      "amount": 6,
+      "itemNr": 11,
+      "image": "./server/items/cookie.jpg"
     },
     {
       "id": 2,
       "name": "Protein Bar",
       "price": 5,
-      "amount": 5,
-      "itemNr": 12
+      "amount": 4,
+      "itemNr": 12,
+      "image": ""
     },
     {
       "id": 3,
       "name": "Snickers",
       "price": 7,
       "amount": 0,
-      "itemNr": 13
+      "itemNr": 13,
+      "image": ""
     },
     {
       "id": 4,
       "name": "Mars",
       "price": 7,
-      "amount": 2,
-      "itemNr": 14
+      "amount": 1,
+      "itemNr": 14,
+      "image": ""
     },
     {
       "id": 5,
       "name": "Water",
       "price": 2,
-      "amount": 3,
-      "itemNr": 21
+      "amount": 5,
+      "itemNr": 21,
+      "image": ""
     },
     {
       "id": 6,
       "name": "Cola",
       "price": 3,
-      "amount": 3,
-      "itemNr": 22
+      "amount": 4,
+      "itemNr": 22,
+      "image": ""
     },
     {
       "id": 7,
       "name": "Fanta",
       "price": 3,
-      "amount": 10,
-      "itemNr": 23
+      "amount": 9,
+      "itemNr": 23,
+      "image": ""
     },
     {
       "id": 8,
       "name": "Sprite",
       "price": 3,
-      "amount": 6,
-      "itemNr": 24
+      "amount": 8,
+      "itemNr": 24,
+      "image": ""
     },
     {
       "id": 9,
       "name": "Ham & Cheese Sandwich",
       "price": 8,
-      "amount": 1,
-      "itemNr": 31
+      "amount": 0,
+      "itemNr": 31,
+      "image": ""
     },
     {
       "id": 10,
       "name": "Angel Dust",
       "price": 120,
       "amount": 1,
-      "itemNr": 32
+      "itemNr": 32,
+      "image": ""
     }
   ],
   "moneyStash": {
-    "stash": 206,
-    "inPurchase": 103
+    "stash": 198,
+    "inPurchase": 3
   }
 }

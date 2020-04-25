@@ -61,6 +61,11 @@ const VendingMachine = (props) => {
     return listPurchasedItems;
   };
 
+  const handleEmptySlot = () => {
+    // const emptyList = listPurchasedItems.splice(0,listPurchasedItems.length);
+    setListPurchasedItems([]);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -71,6 +76,7 @@ const VendingMachine = (props) => {
               vendingItems={items.data}
               updateItemAction={boundUpdateItemAction}
               listPurchasedItems={listPurchasedItems}
+              handleEmptySlot={handleEmptySlot}
             />
           </div>
           <div className="column columnInput">
@@ -79,6 +85,8 @@ const VendingMachine = (props) => {
               moneyStash={moneyStash.data}
               updateItemAction={boundUpdateItemAction}
               updateMoney={boundMoneyItemAction}
+              listPurchased={listPurchasedItems}
+              setListPurchased={setListPurchasedItems}
               handlePurchasedItem={handlePurchasedItem}
             />
           </div>

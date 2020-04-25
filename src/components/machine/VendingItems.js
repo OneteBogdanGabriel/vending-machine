@@ -66,19 +66,16 @@ const generateTable = (items) => {
   return gridView;
 };
 
-const displayPurchase = (listPurchasedItems, handleCollectItems) => {
-  if (listPurchasedItems && listPurchasedItems.length > 0) {
-    return (
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-      <p onClick={handleCollectItems} onKeyDown={handleCollectItems}>
-        {listPurchasedItems.map((purchase) => `${purchase.item.name} x${purchase.amount}`).join(', ')}
-      </p>
-    );
-  }
-  return <p>{vendingMachineSlot}</p>;
-};
+const displayPurchase = (listPurchasedItems, handleCollectItems) => (
+  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+  <p onClick={handleCollectItems} onKeyDown={handleCollectItems} className="dropSlotContent">
+    {(listPurchasedItems && listPurchasedItems.length > 0)
+      ? listPurchasedItems.map((purchase) => `${purchase.item.name} x${purchase.amount}`).join(', ')
+      : vendingMachineSlot}
+  </p>
+);
 
-const VendingItems = React.memo((props) => { // equivalent to shootComponentUpdate, sau React Pure Component
+const VendingItems = (props) => { // equivalent to shootComponentUpdate, sau React Pure Component
   const { items, listPurchasedItems, handleCollectItems } = props;
   return (
     <div className="displaySection">
@@ -90,7 +87,7 @@ const VendingItems = React.memo((props) => { // equivalent to shootComponentUpda
       </div>
     </div>
   );
-});
+};
 
 VendingItems.propTypes = {
   handleCollectItems: PropTypes.func.isRequired,

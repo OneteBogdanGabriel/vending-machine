@@ -7,9 +7,8 @@ import VendingItems from './VendingItems';
 
 const VendingItemsContainer = (props) => {
   // const { vendingItems: { data, isFulfilled }, actions } = props;
-  const { vendingItems, listPurchasedItems } = props;
+  const { vendingItems, listPurchasedItems, handleEmptySlot } = props;
 
-  let slotItems = listPurchasedItems;
   const [, updateState] = useState();
 
   // const [newItem, setNewItem] = useState(null);
@@ -43,17 +42,12 @@ const VendingItemsContainer = (props) => {
 
   // const callbackItemNr = useCallback(handleItemNr, []);
 
-  const forceUpdate = useCallback(() => updateState({}), []);
-
-  const handleCollectItems = () => {
-    slotItems = [];
-    // forceUpdate();
-  };
+  // const forceUpdate = useCallback(() => updateState({}), []);
 
   return (
     <VendingItems
-      handleCollectItems={handleCollectItems}
-      listPurchasedItems={slotItems}
+      handleCollectItems={handleEmptySlot}
+      listPurchasedItems={listPurchasedItems}
       items={vendingItems.data}
     />
   );
@@ -62,6 +56,7 @@ const VendingItemsContainer = (props) => {
 VendingItemsContainer.propTypes = {
   vendingItems: PropTypes.object.isRequired,
   listPurchasedItems: PropTypes.array.isRequired,
+  handleEmptySlot: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -1,9 +1,13 @@
+.displaySection {
+  width: 500px;
+  /* needed for ellipsis to have a limit */
+}
 
 .itemSlot {
   border: solid;
   width: 25%;
   vertical-align: baseline;
-  background-color: #ffffff
+  background-color: #ffffff;
 }
 
 .dropSlot {
@@ -13,9 +17,10 @@
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
+}
+
+.dropSlotContent {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
 }
-

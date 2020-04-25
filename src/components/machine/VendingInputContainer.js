@@ -11,7 +11,7 @@ import {
 
 const VendingInputContainer = (props) => {
   const {
-    vendingItems, moneyStash, handlePurchasedItem, actions,
+    vendingItems, moneyStash, handlePurchasedItem, actions, setListPurchased, listPurchased,
   } = props;
 
   const [inputMoney, setInputMoney] = useState(0);
@@ -19,7 +19,7 @@ const VendingInputContainer = (props) => {
   const [itemSelected, setItemSelected] = useState(null);
   const [newItem, setNewItem] = useState(null);
   const [newMoney, setNewMoney] = useState({});
-  const [listPurchased, setListPurchased] = useState([]);
+  // const [listPurchased, setListPurchased] = useState([]);
   // const [listPurchasedItem, setListPurchasedItem] = useState(null);
 
   useEffect(() => {
